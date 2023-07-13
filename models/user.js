@@ -3,8 +3,6 @@ const Schema = mongoose.Schema;
 // Add the bcrypt library
 const bcrypt = require("bcrypt");
 
-const SALT_ROUNDS = 6; // 6 is a reasonable value
-
 const userSchema = new Schema(
   {
     name: {
