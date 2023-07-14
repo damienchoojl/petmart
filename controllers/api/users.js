@@ -6,12 +6,14 @@ const bcrypt = require("bcrypt");
 async function create(req, res) {
   try {
     // Add the user to the database
-    const user = await User.create(req.body);
+    await User.create(req.body);
+    const user = await User.findOne({ email: req.body.email });
+    console.log(user);
     // token will be a string
     const token = createJWT(user);
     // Yes, we can use res.json to send back just a string
     // The client code needs to take this into consideration
-    res.json(token);
+    res.status(201).json(token);
   } catch (err) {
     // Client will check for non-2xx status code
     // 400 = Bad Request
@@ -25,7 +27,7 @@ async function login(req, res) {
     if (!user) throw new Error();
     const match = await bcrypt.compare(req.body.password, user.password);
     if (!match) throw new Error();
-    res.json(createJWT(user));
+    res.status(200).json(createJWT(user));
   } catch {
     res.status(400).json("Bad Credentials");
   }
