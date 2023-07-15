@@ -24,6 +24,18 @@ const userSchema = new Schema(
       minLength: 3,
       required: true,
     },
+    image: {
+      type: String,
+      default:
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Windows_10_Default_Profile_Picture.svg/2048px-Windows_10_Default_Profile_Picture.svg.png",
+    },
+    isAdmin: {
+      type: Boolean,
+      default: function () {
+        // Check if the email contains "@admin.com"
+        return this.email.includes("@admin.com");
+      },
+    },
   },
   {
     timestamps: true,
