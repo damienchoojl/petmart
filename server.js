@@ -21,13 +21,12 @@ app.use(express.static(path.join(__dirname, "build")));
 // Be sure to mount before routes
 app.use(require("./config/checkToken"));
 
-// API routes
+// Put API routes here, before the "catch all" route
+app.get("/hi", (req, res) => res.json({ msg: "hi" }));
 app.use("/api/users", require("./routes/api/users"));
-app.use("/api/accounts", require("./routes/api/accounts"));
-app.use("/api/orders", require("./routes/api/orders"));
-app.use("/api/items", require("./routes/api/items"));
 
-// Catch-all route for non-AJAX requests
+// The following "catch all" route (note the *) is necessary
+// to return the index.html on all non-AJAX requests
 app.get("/*", function (req, res) {
   res.sendFile(path.join(__dirname, "build", "index.html"));
 });
