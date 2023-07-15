@@ -11,17 +11,9 @@ async function create(req, res) {
     console.log(user);
     // token will be a string
     const token = createJWT(user);
-    if (user.email.endsWith("@admin.com")) {
-      // Add admin-specific features to the token payload
-      const adminToken = jwt.sign({ user, isAdmin: true }, process.env.SECRET, {
-        expiresIn: "24h",
-      });
-      res.status(201).json(adminToken);
-    } else {
-      // Yes, we can use res.json to send back just a string
-      // The client code needs to take this into consideration
-      res.status(201).json(token);
-    }
+    // Yes, we can use res.json to send back just a string
+    // The client code needs to take this into consideration
+    res.status(201).json(token);
   } catch (err) {
     // Client will check for non-2xx status code
     // 400 = Bad Request
