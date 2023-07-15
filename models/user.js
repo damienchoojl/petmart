@@ -5,7 +5,10 @@ const bcrypt = require("bcrypt");
 
 const userSchema = new Schema(
   {
-    name: { type: String, required: true, unique: true },
+    name: {
+      type: String,
+      required: true,
+    },
     email: {
       type: String,
       unique: true,
@@ -13,20 +16,19 @@ const userSchema = new Schema(
       lowercase: true,
       required: true,
     },
-    password: { type: String, trim: true, minLength: 8, required: true },
-    image: {
+    password: {
       type: String,
-      default:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Windows_10_Default_Profile_Picture.svg/2048px-Windows_10_Default_Profile_Picture.svg.png",
+      trim: true,
+      minLength: 3,
+      required: true,
     },
-    isAdmin: { Boolean },
   },
   {
     timestamps: true,
+    // Even though it's hashed - don't serialize the password
     toJSON: {
       transform: function (doc, ret) {
         delete ret.password;
-        delete ret.email;
         return ret;
       },
     },
