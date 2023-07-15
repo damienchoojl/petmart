@@ -1,6 +1,15 @@
 const mongoose = require("mongoose");
 const { Schema, model } = mongoose;
 
+const commentSchema = new Schema(
+  {
+    userId: { type: Schema.Types.ObjectId, ref: "User", unique: true },
+    rating: { type: Number },
+    comment: { type: String },
+  },
+  { timestamps: true }
+);
+
 const itemSchema = new Schema(
   {
     name: { type: String, required: true },
@@ -18,13 +27,7 @@ const itemSchema = new Schema(
     image2: { type: String },
     remainStock: { type: Number },
     brand: { type: String },
-    review: [
-      {
-        userId: { type: Schema.Types.ObjectId, ref: "User", unique: true },
-        comments: { type: String },
-        ratings: { type: Number },
-      },
-    ],
+    comments: [commentSchema],
   },
   {
     timestamps: true,
