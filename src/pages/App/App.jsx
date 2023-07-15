@@ -1,25 +1,3 @@
-// //* for development -> on laptop
-// const SERVER = "???";
-
-// fetch("/hi")
-//   .then((res) => res.json())
-//   .then((data) => console.log(data));
-
-// //* for deployment -> on internet
-// fetch(`${SERVER}/hi`)
-//   .then((res) => res.json())
-//   .then((data) => console.log(data));
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <h1>MERN</h1>
-//     </div>
-//   );
-// }
-
-// export default App;
-
 import { useState } from "react";
 import "./App.css";
 import NewOrderPage from "../NewOrderPage/NewOrderPage";
