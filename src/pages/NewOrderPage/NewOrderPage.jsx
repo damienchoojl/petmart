@@ -5,17 +5,18 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-export default function NewOrderPage() {
+export default function NewOrderPage({ user }) {
   const [accountData, setAccountData] = useState(null);
 
   useEffect(() => {
     fetchAccountData();
-  }, []);
+  }, [user]);
 
   const fetchAccountData = async () => {
     try {
       const response = await axios.get("/api/accounts");
       setAccountData(response.data[0]); // Assuming there is only one account in the response
+      // setAccountData(response.data);
     } catch (error) {
       console.error("Failed to fetch account data:", error);
     }

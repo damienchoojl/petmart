@@ -18,15 +18,15 @@ export default function OrderHistoryPage() {
     }
   }
 
-  function handleCheckToken() {
-    const expDate = checkToken();
-    console.log(expDate);
-  }
+  // function handleCheckToken() {
+  //   const expDate = checkToken();
+  //   console.log(expDate);
+  // }
 
   return (
     <div>
       <h1>Order History</h1>
-      <button onClick={handleCheckToken}>Check When My Login Expires</button>
+      {/* <button onClick={handleCheckToken}>Check When My Login Expires</button> */}
       <div>
         {items.map((item) => (
           <div key={item._id}>
