@@ -1,26 +1,65 @@
-import { Link } from "react-router-dom";
-// Using the import below, we can call any exported function using: userService.someMethod()
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import * as userService from "../../utilities/users-service";
+// import "./NavBar.css";
+import axios from "axios";
 
 export default function NavBar({ user, setUser }) {
-  // Add the following function
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
+  const navigate = useNavigate();
+
   function handleLogOut() {
-    // Delegate to the users-service
     userService.logOut();
-    // Update state will also cause a re-render
     setUser(null);
   }
 
+  function handleDropdownToggle() {
+    setShowDropdown((prev) => !prev);
+  }
+
   return (
-    <nav>
-      <Link to="/orders">Order History</Link>
-      &nbsp; | &nbsp;
-      <Link to="/orders/new">New Order</Link>
-      &nbsp;&nbsp;<span>Welcome, {user.name}</span>
-      &nbsp;&nbsp;
-      <Link to="" onClick={handleLogOut}>
-        Log Out
-      </Link>
+    <nav className="navbar">
+      <div className="nav-left">
+        <Link to="/mainpage" className="nav-logo">
+          <img
+            src="https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_256,w_256,f_auto,q_auto:eco,dpr_1/wexaikkloejtsgnng6wy"
+            alt="Logo"
+          />
+        </Link>
+        <div className="nav-dropdown">
+          <button onClick={handleDropdownToggle} className="nav-dropdown-btn">
+            Pets
+          </button>
+          {showDropdown && (
+            <div className="nav-dropdown-content">
+              <Link to="/cat">Cat</Link>
+              &nbsp;&nbsp;
+              <Link to="/dog">Dog</Link>
+            </div>
+          )}
+        </div>
+        <Link to="/brand" className="nav-link">
+          Brand
+        </Link>
+      </div>
+      <div className="nav-right">
+        <Link to="/orders">Order History</Link>
+        &nbsp; | &nbsp; <Link to="/orders/new">New Order</Link>
+        &nbsp;&nbsp;<span>Welcome, {user.name}</span>
+        &nbsp;&nbsp;
+        <Link to="/favourites" className="nav-link">
+          Favourites
+        </Link>
+        &nbsp;&nbsp;
+        <Link to="/cart" className="nav-link">
+          Cart
+        </Link>
+        &nbsp;&nbsp;
+        <Link to="" onClick={handleLogOut} className="nav-link">
+          Log Out
+        </Link>
+      </div>
     </nav>
   );
 }
