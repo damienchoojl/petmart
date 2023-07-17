@@ -32,10 +32,10 @@ export default function NewOrderPage({ user }) {
           <h3>My Pets:</h3>
           <ul>
             {accountData.myPets.map((pet) => (
-              <li key={pet._id}>
+              <div key={pet._id}>
                 Name: {pet.name}, Type: {pet.type}, Gender: {pet.gender},
                 Birthday: {new Date(pet.birthday).toLocaleDateString()}
-              </li>
+              </div>
             ))}
           </ul>
           <h3>Purchased History: {accountData.purchasedHistory.length}</h3>
