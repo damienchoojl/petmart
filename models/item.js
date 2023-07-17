@@ -1,3 +1,5 @@
+const { NumberDecimal } = require("@rc-component/mini-decimal");
+const { Decimal128 } = require("bson");
 const mongoose = require("mongoose");
 const { Schema, model } = mongoose;
 
@@ -28,6 +30,7 @@ const itemSchema = new Schema(
     remainStock: { type: Number },
     brand: { type: String },
     comments: [commentSchema],
+    brandImage: { type: String },
   },
   {
     timestamps: true,
