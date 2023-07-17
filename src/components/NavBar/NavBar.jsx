@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import * as userService from "../../utilities/users-service";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 // import "./NavBar.css";
 
 export default function NavBar({ user, setUser }) {
@@ -46,11 +48,25 @@ export default function NavBar({ user, setUser }) {
         &nbsp;&nbsp;<span>Welcome, {user.name}</span>
         &nbsp;&nbsp;
         <Link to="/favourites" className="nav-link">
-          Favourites
+          <FavoriteIcon
+            sx={{ color: "white" }}
+            style={{
+              width: "20px",
+              height: "20px",
+              marginRight: "5px",
+            }}
+          />
         </Link>
         &nbsp;&nbsp;
         <Link to="/cart" className="nav-link">
-          Cart
+          <ShoppingCartIcon
+            sx={{ color: "white" }}
+            style={{
+              width: "20px",
+              height: "20px",
+              marginRight: "5px",
+            }}
+          />
         </Link>
         &nbsp;&nbsp;
         <Link to="" onClick={handleLogOut} className="nav-link">
