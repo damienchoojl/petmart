@@ -45,9 +45,6 @@ export default function ItemDetailsPage() {
         <div key={item._id}>
           <img src={item.image1} alt={item.name} />
           <h2>{item.name}</h2>
-          <p>Pet Type: {item.petType}</p>
-          <p>Food Type: {item.foodType}</p>
-          <p>Category Type: {item.categoryType}</p>
           <p>Details: {item.details[0].details}</p>
           <p>
             Ingredients:{" "}
