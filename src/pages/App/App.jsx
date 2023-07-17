@@ -8,6 +8,9 @@ import NavBar from "../../components/NavBar/NavBar";
 import { getUser } from "../../utilities/users-service";
 import MainPage from "../MainPage/MainPage";
 import ItemDetailsPage from "../ItemDetailsPage/ItemDetailsPage";
+import Brand from "../../components/NavBar/Brand";
+import Cat from "../../components/NavBar/Cat";
+import Dog from "../../components/NavBar/Dog";
 
 export default function App() {
   const [user, setUser] = useState(getUser());
@@ -25,6 +28,9 @@ export default function App() {
               path="/items/:itemId"
               element={<ItemDetailsPage user={user} />}
             />
+            <Route path="/brand" element={<Brand />} />
+            <Route path="/cat" element={<Cat />} />
+            <Route path="/dog" element={<Dog />} />
           </Routes>
         </>
       ) : (
