@@ -11,6 +11,12 @@ import ItemDetailsPage from "../ItemDetailsPage/ItemDetailsPage";
 import Brand from "../../components/NavBar/Brand";
 import Cat from "../../components/NavBar/Cat";
 import Dog from "../../components/NavBar/Dog";
+import CatFoodItems from "../CatItemTypes/CatFoodItems";
+import CatTreatItems from "../CatItemTypes/CatTreatItems";
+import CatHealthcareItems from "../CatItemTypes/CatHealthcareItems";
+import DogFoodItems from "../DogItemTypes/DogFoodItems";
+import DogTreatItems from "../DogItemTypes/DogTreatItems";
+import DogHeathcareItems from "../DogItemTypes/DogHealthcareItems";
 
 export default function App() {
   const [user, setUser] = useState(getUser());
@@ -30,7 +36,13 @@ export default function App() {
             />
             <Route path="/brand" element={<Brand />} />
             <Route path="/cat" element={<Cat />} />
+            <Route path="/cat/food" element={<CatFoodItems />} />
+            <Route path="/cat/treat" element={<CatTreatItems />} />
+            <Route path="/cat/healthcare" element={<CatHealthcareItems />} />
             <Route path="/dog" element={<Dog />} />
+            <Route path="/dog/food" element={<DogFoodItems />} />
+            <Route path="/dog/treat" element={<DogTreatItems />} />
+            <Route path="/dog/healthcare" element={<DogHeathcareItems />} />
           </Routes>
         </>
       ) : (
