@@ -1,13 +1,10 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import * as userService from "../../utilities/users-service";
 // import "./NavBar.css";
-import axios from "axios";
 
 export default function NavBar({ user, setUser }) {
   const [showDropdown, setShowDropdown] = useState(false);
-  const [searchValue, setSearchValue] = useState("");
-  const navigate = useNavigate();
 
   function handleLogOut() {
     userService.logOut();
