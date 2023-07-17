@@ -1,5 +1,3 @@
-const { NumberDecimal } = require("@rc-component/mini-decimal");
-const { Decimal128 } = require("bson");
 const mongoose = require("mongoose");
 const { Schema, model } = mongoose;
 

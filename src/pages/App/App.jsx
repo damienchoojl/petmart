@@ -25,7 +25,7 @@ export default function App() {
             <Route path="/orders" element={<OrderHistoryPage />} />
             <Route path="/mainpage" element={<MainPage />} />
             <Route
-              path="/items/:itemId"
+              path="/items/:name"
               element={<ItemDetailsPage user={user} />}
             />
             <Route path="/brand" element={<Brand />} />
