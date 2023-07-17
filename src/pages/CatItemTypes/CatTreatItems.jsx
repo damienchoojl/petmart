@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 export default function CatTreatItems() {
   const [items, setItems] = useState([]);
@@ -31,12 +32,13 @@ export default function CatTreatItems() {
       <h2>Treat Items</h2>
       <div>
         {filteredItems.map((item) => (
-          <img
-            key={item._id}
-            src={item.image1}
-            alt={item.name}
-            style={{ width: "100px", height: "100px" }}
-          />
+          <Link key={item._id} to={`/items/${encodeURIComponent(item.name)}`}>
+            <img
+              src={item.image1}
+              alt={item.name}
+              style={{ width: "100px", height: "100px" }}
+            />
+          </Link>
         ))}
       </div>
     </div>
