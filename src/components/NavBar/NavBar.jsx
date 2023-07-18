@@ -44,8 +44,8 @@ export default function NavBar({ user, setUser }) {
         </Link>
       </div>
       <div className="nav-right">
-        <Link to="/orders">Order History</Link>
-        &nbsp; | &nbsp; <Link to="/orders/new">New Order</Link>
+        {/* <Link to="/orders">Order History</Link>
+        &nbsp; | &nbsp; <Link to="/orders/new">New Order</Link> */}
         <span>Welcome, {user.name}</span>
         <Link to="/favourites" className="nav-link">
           <FavoriteIcon

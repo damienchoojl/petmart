@@ -24,6 +24,7 @@
   border: none;
   color: grey;
   cursor: pointer;
+  font-size: 15px;
 }
 
 .nav-dropdown-content {
@@ -62,6 +63,7 @@
 .nav-link {
   color: grey;
   text-decoration: none;
+  /* font-size: 15px; */
 }
 
 .nav-link:hover {
