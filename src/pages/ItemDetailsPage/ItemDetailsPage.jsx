@@ -43,8 +43,6 @@ export default function ItemDetailsPage() {
   };
 
   const handleAddToCart = () => {
-    // You can implement the logic to add the item to the cart here
-    // For this example, we'll just show the success message
     setAddedToCart(true);
   };
 
@@ -77,14 +75,14 @@ export default function ItemDetailsPage() {
           <p>Stocks: {item.remainStock}</p>
           <div>
             <button onClick={handleDecrement} disabled={quantity === 1}>
-              -1
+              -
             </button>
             <span>{quantity}</span>
             <button
               onClick={handleIncrement}
               disabled={quantity === item.remainStock}
             >
-              +1
+              +
             </button>
           </div>
           <button onClick={handleAddToCart} disabled={item.remainStock <= 0}>
