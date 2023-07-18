@@ -7,6 +7,7 @@ import Slider from "react-slick";
 
 const MainPage = () => {
   const [items, setItems] = useState([]);
+  const [promotions, setPromotions] = useState([]);
   const carouselSettings = {
     dots: true,
     infinite: true,
@@ -30,8 +31,22 @@ const MainPage = () => {
     }
   };
 
+  const fetchPromotions = async () => {
+    try {
+      const response = await fetch("/api/promotions");
+      if (!response.ok) {
+        throw new Error("Failed to fetch promotions");
+      }
+      const data = await response.json();
+      setPromotions(data.promotions);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     fetchItems();
+    fetchPromotions();
   }, []);
 
   const itemsWithStock = items.filter((item) => item.remainStock > 0);
@@ -39,31 +54,26 @@ const MainPage = () => {
   return (
     <div>
       <div className="items-carousel">
-        <p></p>
-        {itemsWithStock.length > 0 ? (
+        {promotions.length > 0 ? (
           <Carousel {...carouselSettings}>
-            {itemsWithStock.map((item) => (
-              <Link
-                key={item._id}
-                to={`/items/${encodeURIComponent(item.name)}`}
-                state={item}
-                style={{ pointerEvents: "none" }}
-              >
+            {promotions.map((promotion) => (
+              <div key={promotion._id}>
                 <img
-                  src={item.image1}
-                  alt={item.name}
+                  src={promotion.image}
+                  alt={`Promotion ${promotion._id}`}
                   style={{
                     border: "2px solid black",
                     borderColor: "solid black",
                     objectFit: "cover",
                     maxWidth: "90%",
+                    maxHeight: "500px",
                   }}
                 />
-              </Link>
+              </div>
             ))}
           </Carousel>
         ) : (
-          <p>No movies available for the carousel</p>
+          <p>No promotions available for the carousel</p>
         )}
       </div>
 
@@ -72,7 +82,7 @@ const MainPage = () => {
         <h2>Cat Food</h2>
         <hr></hr>
         {items.length > 4 ? (
-          <Slider slidesToShow={4} slidesToScroll={1}>
+          <Slider slidesToShow={6} slidesToScroll={1}>
             {items
               .filter((item) => item.petType === "Cat")
               .map((item) => (
@@ -127,7 +137,7 @@ const MainPage = () => {
         <h2>Dog Food</h2>
         <hr></hr>
         {items.length > 4 ? (
-          <Slider slidesToShow={4} slidesToScroll={1}>
+          <Slider slidesToShow={6} slidesToScroll={1}>
             {items
               .filter((item) => item.petType === "Dog")
               .map((item) => (
