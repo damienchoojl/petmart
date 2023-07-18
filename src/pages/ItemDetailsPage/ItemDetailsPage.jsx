@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "../ItemDetailsPage/ItemDetailsPage.css";
 
-export default function ItemDetailsPage() {
+export default function ItemDetailsPage({ user }) {
   const [item, setItem] = useState(null);
   const [addedToCart, setAddedToCart] = useState(false);
   const [quantity, setQuantity] = useState(1);
@@ -43,8 +43,28 @@ export default function ItemDetailsPage() {
     }
   };
 
-  const handleAddToCart = () => {
-    setAddedToCart(true);
+  const handleAddToCart = async () => {
+    try {
+      const response = await fetch("/api/accounts/add-to-cart", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: user._id,
+          itemId: item._id,
+          quantity: quantity,
+        }),
+      });
+
+      if (response.ok) {
+        setAddedToCart(true);
+      } else {
+        console.error("Failed to add item to cart");
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleIncrement = () => {
