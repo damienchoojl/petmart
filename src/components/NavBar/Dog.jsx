@@ -4,6 +4,7 @@ export default function Dog() {
   return (
     <>
       <div>
+        <h2>Shop by Categories</h2>
         <Link to="/dog/food">
           <button>Food</button>
         </Link>

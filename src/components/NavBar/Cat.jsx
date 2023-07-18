@@ -5,6 +5,7 @@ export default function Cat() {
   return (
     <>
       <div>
+        <h2>Shop by Categories</h2>
         <Link to="/cat/food">
           <button>Food</button>
         </Link>
