@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import * as userService from "../../utilities/users-service";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import LogoutIcon from "@mui/icons-material/Logout";
 import "../NavBar/NavBar.css";
 
 export default function NavBar({ user, setUser }) {
@@ -72,7 +73,14 @@ export default function NavBar({ user, setUser }) {
           />
         </Link>
         <Link to="" onClick={handleLogOut} className="nav-link">
-          Log Out
+          <LogoutIcon
+            sx={{ color: "grey" }}
+            style={{
+              width: "20px",
+              height: "20px",
+              marginRight: "5px",
+            }}
+          />
         </Link>
       </div>
     </nav>
