@@ -50,8 +50,6 @@ const MainPage = () => {
     fetchPromotions();
   }, []);
 
-  const itemsWithStock = items.filter((item) => item.remainStock > 0);
-
   return (
     <div>
       <div className="items-carousel">
@@ -85,7 +83,7 @@ const MainPage = () => {
         {items.length > 4 ? (
           <Slider slidesToShow={6} slidesToScroll={1}>
             {items
-              .filter((item) => item.petType === "Cat")
+              .filter((item) => item.petType === "Cat" && item.remainStock > 0)
               .map((item) => (
                 <div key={item.name} className="cat-item">
                   <Link
@@ -109,7 +107,7 @@ const MainPage = () => {
         ) : (
           <div className="cat-row">
             {items
-              .filter((item) => item.petType === "Cat")
+              .filter((item) => item.petType === "Cat" && item.remainStock > 0)
               .map((item) => (
                 <div key={item.name} className="cat-item">
                   <Link
@@ -140,7 +138,7 @@ const MainPage = () => {
         {items.length > 4 ? (
           <Slider slidesToShow={6} slidesToScroll={1}>
             {items
-              .filter((item) => item.petType === "Dog")
+              .filter((item) => item.petType === "Dog" && item.remainStock > 0)
               .map((item) => (
                 <div key={item.name} className="dog-item">
                   <Link
@@ -164,7 +162,7 @@ const MainPage = () => {
         ) : (
           <div className="dog-row">
             {items
-              .filter((item) => item.petType === "Dog")
+              .filter((item) => item.petType === "Dog" && item.remainStock > 0)
               .map((item) => (
                 <div key={item.name} className="dog-item">
                   <Link
