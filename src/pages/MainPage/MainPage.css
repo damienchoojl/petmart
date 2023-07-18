@@ -1,0 +1,49 @@
+.cat-food-carousel .cat-row {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.cat-food-carousel .cat-item {
+  flex: 0 0 auto;
+  width: 200px;
+  height: 300px;
+  margin-top: 15px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  scroll-snap-align: start;
+  transition: transform 0.3s;
+}
+
+.dog-food-carousel .dog-row {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.dog-food-carousel .dog-item {
+  flex: 0 0 auto;
+  width: 200px;
+  height: 300px;
+  margin-top: 15px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  scroll-snap-align: start;
+  transition: transform 0.3s;
+}
+
+.cat-item:hover {
+  transform: scale(1.1);
+  transition: transform 0.3s ease;
+}
+
+.dog-item:hover {
+  transform: scale(1.1);
+  transition: transform 0.3s ease;
+}

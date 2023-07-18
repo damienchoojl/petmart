@@ -4,6 +4,7 @@ import { Carousel } from "antd";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
+import "../MainPage/MainPage.css";
 
 const MainPage = () => {
   const [items, setItems] = useState([]);
@@ -121,8 +122,8 @@ const MainPage = () => {
                       style={{
                         maxWidth: "200px",
                         maxHeight: "300px",
-                        border: "2px solid red",
-                        borderColor: "solid red",
+                        border: "2px solid black",
+                        borderColor: "solid black",
                       }}
                     />
                   </Link>
@@ -133,7 +134,7 @@ const MainPage = () => {
       </div>
 
       {/* Dog Food */}
-      <div className="cat-food-carousel">
+      <div className="dog-food-carousel">
         <h2>Dog Food</h2>
         <hr></hr>
         {items.length > 4 ? (
@@ -176,8 +177,8 @@ const MainPage = () => {
                       style={{
                         maxWidth: "200px",
                         maxHeight: "300px",
-                        border: "2px solid red",
-                        borderColor: "solid red",
+                        border: "2px solid black",
+                        borderColor: "solid black",
                       }}
                     />
                   </Link>
