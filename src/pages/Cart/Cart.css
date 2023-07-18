@@ -1,0 +1,26 @@
+.cart-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.cart-table-header {
+  display: flex;
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.table-header-item,
+.table-row-item {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.table-row-item img {
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+.cart-table-row:nth-child(even) {
+  background-color: #f2f2f2;
+}
