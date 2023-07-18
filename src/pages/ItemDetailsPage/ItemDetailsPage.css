@@ -1,0 +1,89 @@
+/* CSS for ItemDetailsPage */
+
+.item-details-container {
+  display: flex;
+  align-items: center;
+}
+
+.item-image {
+  max-width: 250px;
+  max-height: 350px;
+  margin-right: 20px;
+  object-fit: cover;
+}
+
+.item-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.item-name {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.item-price {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.quantity-container {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.quantity-button {
+  background-color: #f1f1f1;
+  border: none;
+  padding: 5px 10px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.add-to-cart-container {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.add-to-cart-button {
+  font-size: 16px;
+  padding: 10px 20px;
+  cursor: pointer;
+  border: none;
+  background-color: #4caf50;
+  color: white;
+}
+
+.add-to-cart-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.product-details-container {
+  margin-top: 20px;
+  border-top: 1px solid #f1f1f1;
+  padding-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.product-details {
+  flex: 1;
+}
+
+.product-details h3 {
+  margin-bottom: 10px;
+}
+
+.comments-container {
+  margin-top: 20px;
+}
+
+.comments-container h3 {
+  margin-bottom: 10px;
+}
