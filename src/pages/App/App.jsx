@@ -1,9 +1,9 @@
 import { useState } from "react";
 import "./App.css";
-import NewOrderPage from "../NewOrderPage/NewOrderPage";
+// import NewOrderPage from "../NewOrderPage/NewOrderPage";
 import AuthPage from "../AuthPage/AuthPage";
 import { Route, Routes } from "react-router-dom";
-import OrderHistoryPage from "../OrderHistoryPage/OrderHistoryPage";
+// import OrderHistoryPage from "../OrderHistoryPage/OrderHistoryPage";
 import NavBar from "../../components/NavBar/NavBar";
 import { getUser } from "../../utilities/users-service";
 import MainPage from "../MainPage/MainPage";
@@ -17,6 +17,7 @@ import CatHealthcareItems from "../CatItemTypes/CatHealthcareItems";
 import DogFoodItems from "../DogItemTypes/DogFoodItems";
 import DogTreatItems from "../DogItemTypes/DogTreatItems";
 import DogHeathcareItems from "../DogItemTypes/DogHealthcareItems";
+import Cart from "../Cart/Cart";
 
 export default function App() {
   const [user, setUser] = useState(getUser());
@@ -27,9 +28,10 @@ export default function App() {
         <>
           <NavBar user={user} setUser={setUser} />
           <Routes>
-            <Route path="/orders/new" element={<NewOrderPage user={user} />} />
-            <Route path="/orders" element={<OrderHistoryPage />} />
+            {/* <Route path="/orders/new" element={<NewOrderPage user={user} />} />
+            <Route path="/orders" element={<OrderHistoryPage />} /> */}
             <Route path="/mainpage" element={<MainPage />} />
+            <Route path="/cart" element={<Cart user={user} />} />
             <Route
               path="/items/:name"
               element={<ItemDetailsPage user={user} />}
