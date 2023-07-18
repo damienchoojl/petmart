@@ -7,13 +7,23 @@
   display: flex;
   background-color: #f2f2f2;
   font-weight: bold;
+  flex: 1;
+  padding: 8px;
+  text-align: left;
 }
 
-.table-header-item,
+.table-header-item {
+  padding: 8px;
+  text-align: center;
+  flex: 1;
+  /* display: flex; */
+  align-items: center;
+  justify-content: space-between;
+}
+
 .table-row-item {
   padding: 8px;
   text-align: left;
-  border-bottom: 1px solid #ddd;
 }
 
 .table-row-item img {
@@ -21,6 +31,17 @@
   margin-right: 10px;
 }
 
-.cart-table-row:nth-child(even) {
+.cart-table-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.table-row-qty,
+.table-row-price {
+  flex-basis: 20%;
+}
+
+.cart-table-row:nth-child(odd) {
   background-color: #f2f2f2;
 }

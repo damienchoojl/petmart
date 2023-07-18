@@ -63,16 +63,21 @@ export default function Cart() {
           {/* Table rows */}
           {cartItems.map((item) => (
             <div key={item._id} className="cart-table-row">
+              {/* Product image and name */}
               <div className="table-row-item">
                 <img
                   src={item.image1}
-                  alt={item.name}
+                  alt={item.image1}
                   style={{ width: "100px" }}
                 />
                 <p>{item.name}</p>
               </div>
-              <div className="table-row-item">{item.quantity}</div>
-              <div className="table-row-item">
+              {/* Quantity */}
+              <div className="table-row-item table-row-qty">
+                {item.quantity}
+              </div>
+              {/* Price */}
+              <div className="table-row-item table-row-price">
                 ${item.price * item.quantity}
               </div>
             </div>
