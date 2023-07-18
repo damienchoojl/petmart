@@ -25,6 +25,10 @@ export default function NavBar({ user, setUser }) {
             <img
               src="https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_256,w_256,f_auto,q_auto:eco,dpr_1/wexaikkloejtsgnng6wy"
               alt="Logo"
+              style={{
+                maxWidth: "150px",
+                maxHeight: "150px",
+              }}
             />
           </Link>
         </div>
