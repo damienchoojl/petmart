@@ -6,6 +6,9 @@ import "slick-carousel/slick/slick-theme.css";
 
 export default function ItemDetailsPage() {
   const [item, setItem] = useState(null);
+  const [addedToCart, setAddedToCart] = useState(false);
+  const [quantity, setQuantity] = useState(1);
+
   const { name } = useParams();
 
   useEffect(() => {
@@ -39,6 +42,24 @@ export default function ItemDetailsPage() {
     }
   };
 
+  const handleAddToCart = () => {
+    // You can implement the logic to add the item to the cart here
+    // For this example, we'll just show the success message
+    setAddedToCart(true);
+  };
+
+  const handleIncrement = () => {
+    if (quantity < item.remainStock) {
+      setQuantity((prevQuantity) => prevQuantity + 1);
+    }
+  };
+
+  const handleDecrement = () => {
+    if (quantity > 1) {
+      setQuantity((prevQuantity) => prevQuantity - 1);
+    }
+  };
+
   return (
     <div>
       {item ? (
@@ -54,6 +75,23 @@ export default function ItemDetailsPage() {
           </p>
           <p>Price: ${item.price.toFixed(2)}</p>
           <p>Stocks: {item.remainStock}</p>
+          <div>
+            <button onClick={handleDecrement} disabled={quantity === 1}>
+              -1
+            </button>
+            <span>{quantity}</span>
+            <button
+              onClick={handleIncrement}
+              disabled={quantity === item.remainStock}
+            >
+              +1
+            </button>
+          </div>
+          <button onClick={handleAddToCart} disabled={item.remainStock <= 0}>
+            Add to Cart
+          </button>
+          {item.remainStock <= 0 && <p>Out of Stock</p>}
+          {addedToCart && <p>Added to cart successfully</p>}
           {item.comments.length > 0 && (
             <div>
               <h3>Comments:</h3>
