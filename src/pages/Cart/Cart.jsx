@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../Cart/Cart.css";
+import LocalMallIcon from "@mui/icons-material/LocalMall";
 
 export default function Cart() {
   const [cartItems, setCartItems] = useState([]);
@@ -45,6 +46,15 @@ export default function Cart() {
       });
   }, []);
 
+  // Function to calculate the subtotal
+  const calculateSubtotal = () => {
+    let subtotal = 0;
+    cartItems.forEach((item) => {
+      subtotal += item.price * item.quantity;
+    });
+    return subtotal.toFixed(2);
+  };
+
   return (
     <div>
       <h2>Cart</h2>
@@ -53,35 +63,59 @@ export default function Cart() {
       ) : cartItems.length === 0 ? (
         <p>Your cart is empty.</p>
       ) : (
-        <div className="cart-table">
-          {/* Table header */}
-          <div className="cart-table-header">
-            <div className="table-header-item">Product</div>
-            <div className="table-header-item">Qty</div>
-            <div className="table-header-item">Price</div>
+        <div>
+          {/* Cart table */}
+          <div className="cart-table">
+            <div className="cart-table-header">
+              <div className="table-header-item">Product</div>
+              <div className="table-header-item">Qty</div>
+              <div className="table-header-item">Price</div>
+            </div>
+            {cartItems.map((item) => (
+              <div key={item._id} className="cart-table-row">
+                {/* Product image and name */}
+                <div className="table-row-item">
+                  <img
+                    src={item.image1}
+                    alt={item.image1}
+                    style={{ width: "100px" }}
+                  />
+                  <p>{item.name}</p>
+                </div>
+                {/* Quantity */}
+                <div className="table-row-item table-row-qty">
+                  {item.quantity}
+                </div>
+                {/* Price */}
+                <div className="table-row-item table-row-price">
+                  ${item.price.toFixed(2) * item.quantity}
+                </div>
+              </div>
+            ))}
           </div>
-          {/* Table rows */}
-          {cartItems.map((item) => (
-            <div key={item._id} className="cart-table-row">
-              {/* Product image and name */}
-              <div className="table-row-item">
-                <img
-                  src={item.image1}
-                  alt={item.image1}
-                  style={{ width: "100px" }}
-                />
-                <p>{item.name}</p>
+          <hr></hr>
+
+          {/* Total table */}
+          <div className="total-table">
+            <div className="total-table-row">
+              <div className="total-table-item">
+                <div className="total-table-item">
+                  <LocalMallIcon
+                    sx={{ color: "grey" }}
+                    style={{
+                      width: "20px",
+                      height: "20px",
+                      marginRight: "5px",
+                    }}
+                  />
+                  Sub Total ({cartItems.length} items)
+                </div>
               </div>
-              {/* Quantity */}
-              <div className="table-row-item table-row-qty">
-                {item.quantity}
-              </div>
-              {/* Price */}
-              <div className="table-row-item table-row-price">
-                ${item.price * item.quantity}
+              <div className="total-table-item">
+                Total Amount: ${calculateSubtotal()}
               </div>
             </div>
-          ))}
+          </div>
         </div>
       )}
     </div>
