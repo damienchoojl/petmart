@@ -45,3 +45,30 @@
 .cart-table-row:nth-child(odd) {
   background-color: #f2f2f2;
 }
+
+.total-table {
+  margin-top: 20px;
+  border: 1px solid #ddd;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.total-table-row {
+  background-color: #f2f2f2;
+}
+
+.total-table-item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 3px;
+  text-align: center;
+}
+
+.total-table-item.qty {
+  text-align: left;
+}
+
+.total-table-item.price {
+  text-align: right;
+}
