@@ -55,6 +55,10 @@ export default function Cart() {
     return subtotal.toFixed(2);
   };
 
+  function handleCheckOut() {
+    console.log("Checkout");
+  }
+
   return (
     <div>
       <h2>Cart</h2>
@@ -113,6 +117,12 @@ export default function Cart() {
               </div>
               <div className="total-table-item">
                 Total Amount: ${calculateSubtotal()}
+              </div>
+              {/* Checkout button */}
+              <div className="checkout-button">
+                <button onClick={handleCheckOut} className="checkout-btn">
+                  Checkout
+                </button>
               </div>
             </div>
           </div>
