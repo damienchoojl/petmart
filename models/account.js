@@ -1,6 +1,13 @@
 const mongoose = require("mongoose");
 const { Schema, model } = mongoose;
 
+const purchasedItemSchema = new Schema({
+  itemId: { type: Schema.Types.ObjectId, ref: "Item" },
+  name: { type: String, required: true },
+  price: { type: Number, required: true },
+  quantity: { type: Number, required: true },
+});
+
 const accountSchema = new Schema(
   {
     user: { type: Schema.Types.ObjectId, ref: "User" },
@@ -13,7 +20,12 @@ const accountSchema = new Schema(
         birthday: { type: Date },
       },
     ],
-    purchasedHistory: [{ type: Schema.Types.ObjectId, ref: "Order" }],
+    purchasedHistory: [
+      {
+        orderId: { type: String, required: true },
+        items: [purchasedItemSchema],
+      },
+    ],
     itemInCart: [{ type: Schema.Types.ObjectId, ref: "Item" }],
   },
   {
