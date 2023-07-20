@@ -25,7 +25,8 @@
     "react-scripts": "5.0.1",
     "react-slick": "^0.29.0",
     "serve-favicon": "^2.5.0",
-    "slick-carousel": "^1.8.1"
+    "slick-carousel": "^1.8.1",
+    "uuidv4": "^6.2.13"
   },
   "scripts": {
     "start": "react-scripts start",
