@@ -62,8 +62,33 @@ const getCartItems = async (req, res) => {
   }
 };
 
+const deleteCartItem = async (req, res) => {
+  const { itemId } = req.body;
+  if (!itemId) {
+    return res
+      .status(400)
+      .json({ error: "Item ID is missing in the request body." });
+  }
+
+  try {
+    const account = await Account.findOne({ user: req.user._id });
+    if (!account) {
+      return res.status(404).json({ error: "Account not found." });
+    }
+
+    account.itemInCart.pull(itemId);
+    await account.save();
+
+    res.json({ message: "Item deleted from cart successfully." });
+  } catch (error) {
+    console.error("Error deleting item from cart:", error);
+    res.status(500).json({ error: "Internal server error." });
+  }
+};
+
 module.exports = {
   getAccounts,
   addToCart,
   getCartItems,
+  deleteCartItem,
 };

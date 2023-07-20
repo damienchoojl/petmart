@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../Cart/Cart.css";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
+import axios from "axios";
 
 export default function Cart() {
   const [cartItems, setCartItems] = useState([]);
@@ -77,6 +78,34 @@ export default function Cart() {
     );
   };
 
+  // Function to handle deleting an item from the cart
+  const deleteCartItem = async (itemId) => {
+    console.log("Deleting item with ID:", itemId);
+
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        console.error("User token not found. Please log in first.");
+        return;
+      }
+
+      const response = await axios.delete("/api/accounts/delete-cart-item", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        data: { itemId },
+      });
+
+      console.log(response.data.message);
+
+      setCartItems((prevItems) =>
+        prevItems.filter((item) => item._id !== itemId)
+      );
+    } catch (error) {
+      console.error("Error deleting item from cart:", error);
+    }
+  };
+
   function handleCheckOut() {
     console.log("Checkout");
   }
@@ -96,6 +125,8 @@ export default function Cart() {
               <div className="table-header-item">Product</div>
               <div className="table-header-item">Qty</div>
               <div className="table-header-item">Price</div>
+              <div className="table-header-item">Action</div>{" "}
+              {/* New column for the delete button */}
             </div>
             {cartItems.map((item) => (
               <div key={item._id} className="cart-table-row">
@@ -127,6 +158,12 @@ export default function Cart() {
                 {/* Price */}
                 <div className="table-row-item table-row-price">
                   ${item.price.toFixed(2) * item.quantity}
+                </div>
+                {/* Delete button */}
+                <div className="table-row-item">
+                  <button onClick={() => deleteCartItem(item._id)}>
+                    Delete
+                  </button>
                 </div>
               </div>
             ))}
