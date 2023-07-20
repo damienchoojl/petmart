@@ -9,21 +9,15 @@
   font-weight: bold;
   flex: 1;
   padding: 8px;
-  text-align: left;
 }
 
 .table-header-item {
-  padding: 8px;
-  text-align: center;
   flex: 1;
-  /* display: flex; */
-  align-items: center;
-  justify-content: space-between;
+  padding: 8px;
 }
 
 .table-row-item {
   padding: 8px;
-  text-align: left;
 }
 
 .table-row-item img {
@@ -40,6 +34,7 @@
 .table-row-qty,
 .table-row-price {
   flex-basis: 20%;
+  text-align: center; /* Adjusted to center align Qty and Price */
 }
 
 .cart-table-row:nth-child(odd) {
@@ -71,4 +66,11 @@
 
 .total-table-item.price {
   text-align: right;
+}
+
+.delete-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
 }

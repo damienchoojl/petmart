@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../Cart/Cart.css";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
+import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
 
 export default function Cart() {
@@ -125,8 +126,6 @@ export default function Cart() {
               <div className="table-header-item">Product</div>
               <div className="table-header-item">Qty</div>
               <div className="table-header-item">Price</div>
-              <div className="table-header-item">Action</div>{" "}
-              {/* New column for the delete button */}
             </div>
             {cartItems.map((item) => (
               <div key={item._id} className="cart-table-row">
@@ -144,6 +143,7 @@ export default function Cart() {
                   <button
                     onClick={() => decreaseQuantity(item._id)}
                     disabled={item.quantity === 1}
+                    className="quantity-button"
                   >
                     -
                   </button>
@@ -151,6 +151,7 @@ export default function Cart() {
                   <button
                     onClick={() => increaseQuantity(item._id)}
                     disabled={item.quantity === item.remainStock}
+                    className="quantity-button"
                   >
                     +
                   </button>
@@ -161,8 +162,18 @@ export default function Cart() {
                 </div>
                 {/* Delete button */}
                 <div className="table-row-item">
-                  <button onClick={() => deleteCartItem(item._id)}>
-                    Delete
+                  <button
+                    onClick={() => deleteCartItem(item._id)}
+                    className="delete-button"
+                  >
+                    <DeleteIcon
+                      sx={{ color: "grey" }}
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                        marginRight: "5px",
+                      }}
+                    />
                   </button>
                 </div>
               </div>
