@@ -55,6 +55,28 @@ export default function Cart() {
     return subtotal.toFixed(2);
   };
 
+  // Function to handle increasing the quantity of an item
+  const increaseQuantity = (itemId) => {
+    setCartItems((prevItems) =>
+      prevItems.map((item) =>
+        item._id === itemId && item.quantity < item.remainStock
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
+      )
+    );
+  };
+
+  // Function to handle decreasing the quantity of an item
+  const decreaseQuantity = (itemId) => {
+    setCartItems((prevItems) =>
+      prevItems.map((item) =>
+        item._id === itemId && item.quantity > 1
+          ? { ...item, quantity: item.quantity - 1 }
+          : item
+      )
+    );
+  };
+
   function handleCheckOut() {
     console.log("Checkout");
   }
@@ -81,14 +103,26 @@ export default function Cart() {
                 <div className="table-row-item">
                   <img
                     src={item.image1}
-                    alt={item.image1}
+                    alt={item.name}
                     style={{ width: "100px" }}
                   />
                   <p>{item.name}</p>
                 </div>
                 {/* Quantity */}
                 <div className="table-row-item table-row-qty">
-                  {item.quantity}
+                  <button
+                    onClick={() => decreaseQuantity(item._id)}
+                    disabled={item.quantity === 1}
+                  >
+                    -
+                  </button>
+                  <span>{item.quantity}</span>
+                  <button
+                    onClick={() => increaseQuantity(item._id)}
+                    disabled={item.quantity === item.remainStock}
+                  >
+                    +
+                  </button>
                 </div>
                 {/* Price */}
                 <div className="table-row-item table-row-price">
@@ -97,7 +131,7 @@ export default function Cart() {
               </div>
             ))}
           </div>
-          <hr></hr>
+          <hr />
 
           {/* Total table */}
           <div className="total-table">
