@@ -98,29 +98,58 @@ const checkout = async (req, res) => {
       return res.status(400).json({ error: "Invalid user ID" });
     }
 
-    const account = await Account.findOne({ user: userId }).populate(
-      "itemInCart"
-    );
+    const account = await Account.findOne({ user: userId })
+      .populate("itemInCart")
+      .exec();
+
     if (!account) {
       return res.status(404).json({ error: "User account not found" });
+    }
+
+    // Check if there are items in the cart
+    if (account.itemInCart.length === 0) {
+      return res.status(400).json({ error: "Cart is empty" });
     }
 
     // Generate a random 5-digit order ID
     const orderId = uuidv4().substr(0, 5);
 
-    // Move items from itemInCart to purchasedHistory
-    const purchasedItems = account.itemInCart.map((item) => ({
-      itemId: item._id,
-      name: item.name,
-      price: item.price,
-      quantity: 1, // You may want to change this if you want to track quantity
-    }));
+    // Prepare the purchased items and deduct remainStock
+    const purchasedItems = [];
 
-    account.purchasedHistory.push({ orderId, items: purchasedItems });
+    for (const cartItem of account.itemInCart) {
+      if (cartItem.remainStock < 1) {
+        return res.status(400).json({ error: "Not enough stock for an item" });
+      }
+
+      // Deduct the quantity from remainStock
+      cartItem.remainStock -= 1;
+
+      // Save the updated item
+      await cartItem.save();
+
+      // Add the purchased item to the list
+      purchasedItems.push({
+        itemId: cartItem._id,
+        name: cartItem.name,
+        price: cartItem.price,
+        quantity: 1, // In this example, we assume each item has a quantity of 1 in the cart.
+      });
+    }
+
+    // Add the purchased items to purchasedHistory with the generated orderId
+    account.purchasedHistory.push({
+      orderId,
+      items: purchasedItems,
+    });
+
+    // Clear the cart after successful checkout
     account.itemInCart = [];
+
+    // Save the updated account
     await account.save();
 
-    res.json({ message: "Checkout successful.", orderId });
+    res.status(200).json({ message: "Checkout successful", orderId });
   } catch (error) {
     console.error("Error during checkout:", error);
     res.status(500).json({ error: "Error during checkout" });
