@@ -18,6 +18,7 @@ import DogFoodItems from "../DogItemTypes/DogFoodItems";
 import DogTreatItems from "../DogItemTypes/DogTreatItems";
 import DogHeathcareItems from "../DogItemTypes/DogHealthcareItems";
 import Cart from "../Cart/Cart";
+import PurchasedConfirmationPage from "../PurchasedConfirmationPage/PurchasedConfirmationPage";
 
 export default function App() {
   const [user, setUser] = useState(getUser());
@@ -32,6 +33,10 @@ export default function App() {
             <Route path="/orders" element={<OrderHistoryPage />} /> */}
             <Route path="/mainpage" element={<MainPage />} />
             <Route path="/cart" element={<Cart user={user} />} />
+            <Route
+              path="/cart/:purchased-confirmation"
+              element={<PurchasedConfirmationPage user={user} />}
+            />
             <Route
               path="/items/:name"
               element={<ItemDetailsPage user={user} />}
