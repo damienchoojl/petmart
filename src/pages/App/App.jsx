@@ -34,7 +34,7 @@ export default function App() {
             <Route path="/mainpage" element={<MainPage />} />
             <Route path="/cart" element={<Cart user={user} />} />
             <Route
-              path="/cart/:orderId"
+              path="/cart/confirmation"
               element={<PurchasedConfirmationPage user={user} />}
             />
             <Route
