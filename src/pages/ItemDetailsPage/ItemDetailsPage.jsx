@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Slider from "react-slick";
+import { StarRate as StarRateIcon } from "@mui/icons-material";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "../ItemDetailsPage/ItemDetailsPage.css";
@@ -79,6 +80,19 @@ export default function ItemDetailsPage({ user }) {
     }
   };
 
+  const calculateAverageRating = (comments) => {
+    if (!comments || comments.length === 0) {
+      return 0;
+    }
+    const totalRating = comments.reduce(
+      (sum, comment) => sum + comment.rating,
+      0
+    );
+    return totalRating / comments.length;
+  };
+
+  const averageRating = calculateAverageRating(item ? item.comments : []);
+
   return (
     <div>
       {item ? (
@@ -86,6 +100,16 @@ export default function ItemDetailsPage({ user }) {
           <img src={item.image1} alt={item.name} className="item-image" />
           <div className="item-details">
             <h2 className="item-name">{item.name}</h2>
+            <div className="average-rating">
+              {averageRating ? (
+                <>
+                  <span>Average Rating: {averageRating.toFixed(1)}</span>
+                  <StarRateIcon className="star-icon" />
+                </>
+              ) : (
+                <span>No Ratings Yet</span>
+              )}
+            </div>
             <p className="item-price">Price: ${item.price.toFixed(2)}</p>
             <div className="quantity-container">
               Quantity
@@ -119,7 +143,7 @@ export default function ItemDetailsPage({ user }) {
       ) : (
         <p>Loading...</p>
       )}
-      <hr></hr>
+      <hr />
       {item && (
         <div className="product-details-container">
           <div className="product-details">
@@ -136,16 +160,19 @@ export default function ItemDetailsPage({ user }) {
           </div>
         </div>
       )}
-      <hr></hr>
+      <hr />
       {item && item.comments.length > 0 && (
         <div className="comments-container">
-          <h3>Comments:</h3>
+          <h3>Ratings & Reviews:</h3>
           <Slider {...carouselSettings}>
             {item.comments.map((comment) => (
               <div key={comment._id}>
-                <p>User ID: {comment.userId._id}</p>
+                <p>
+                  User ID: {comment.userId._id.substring(0, 5)}
+                  {comment.userId._id.substring(5).replace(/./g, "*")}
+                </p>
                 <p>Rating: {comment.rating}</p>
-                <p>Comment: {comment.comment}</p>
+                <p>Reviews: {comment.comment}</p>
               </div>
             ))}
           </Slider>
