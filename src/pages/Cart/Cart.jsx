@@ -3,10 +3,12 @@ import "../Cart/Cart.css";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
+import { useNavigate } from "react-router";
 
 export default function Cart() {
   const [cartItems, setCartItems] = useState([]);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch("/api/accounts/get-cart-items", {
@@ -109,8 +111,25 @@ export default function Cart() {
 
   function handleCheckOut() {
     console.log("Checkout");
-  }
 
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        console.error("User token not found. Please log in first.");
+        return;
+      }
+
+      axios.post("/api/accounts/checkout", null, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      navigate("../cart/confirmation");
+    } catch (error) {
+      console.error("Error during checkout:", error);
+    }
+  }
   return (
     <div>
       <h2>Cart</h2>
