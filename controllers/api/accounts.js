@@ -1,5 +1,6 @@
 const Account = require("../../models/account");
 const Item = require("../../models/item");
+const { v4: uuidv4 } = require("uuid");
 
 const getAccounts = async (req, res) => {
   try {
@@ -86,9 +87,50 @@ const deleteCartItem = async (req, res) => {
   }
 };
 
+const checkout = async (req, res) => {
+  try {
+    if (!req.user) {
+      return res.status(401).json({ error: "User not authenticated" });
+    }
+
+    const userId = req.user._id;
+    if (!userId) {
+      return res.status(400).json({ error: "Invalid user ID" });
+    }
+
+    const account = await Account.findOne({ user: userId }).populate(
+      "itemInCart"
+    );
+    if (!account) {
+      return res.status(404).json({ error: "User account not found" });
+    }
+
+    // Generate a random 5-digit order ID
+    const orderId = uuidv4().substr(0, 5);
+
+    // Move items from itemInCart to purchasedHistory
+    const purchasedItems = account.itemInCart.map((item) => ({
+      itemId: item._id,
+      name: item.name,
+      price: item.price,
+      quantity: 1, // You may want to change this if you want to track quantity
+    }));
+
+    account.purchasedHistory.push({ orderId, items: purchasedItems });
+    account.itemInCart = [];
+    await account.save();
+
+    res.json({ message: "Checkout successful.", orderId });
+  } catch (error) {
+    console.error("Error during checkout:", error);
+    res.status(500).json({ error: "Error during checkout" });
+  }
+};
+
 module.exports = {
   getAccounts,
   addToCart,
   getCartItems,
   deleteCartItem,
+  checkout,
 };
