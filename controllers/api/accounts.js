@@ -106,15 +106,12 @@ const checkout = async (req, res) => {
       return res.status(404).json({ error: "User account not found" });
     }
 
-    // Check if there are items in the cart
     if (account.itemInCart.length === 0) {
       return res.status(400).json({ error: "Cart is empty" });
     }
 
-    // Generate a random 5-digit order ID
     const orderId = uuidv4().substr(0, 5);
 
-    // Prepare the purchased items and deduct remainStock
     const purchasedItems = [];
 
     for (const cartItem of account.itemInCart) {
@@ -122,31 +119,25 @@ const checkout = async (req, res) => {
         return res.status(400).json({ error: "Not enough stock for an item" });
       }
 
-      // Deduct the quantity from remainStock
       cartItem.remainStock -= 1;
 
-      // Save the updated item
       await cartItem.save();
 
-      // Add the purchased item to the list
       purchasedItems.push({
         itemId: cartItem._id,
         name: cartItem.name,
         price: cartItem.price,
-        quantity: 1, // In this example, we assume each item has a quantity of 1 in the cart.
+        quantity: 1,
       });
     }
 
-    // Add the purchased items to purchasedHistory with the generated orderId
     account.purchasedHistory.push({
       orderId,
       items: purchasedItems,
     });
 
-    // Clear the cart after successful checkout
     account.itemInCart = [];
 
-    // Save the updated account
     await account.save();
 
     res.status(200).json({ message: "Checkout successful", orderId });
