@@ -109,7 +109,7 @@ export default function Cart() {
     }
   };
 
-  function handleCheckOut() {
+  async function handleCheckOut() {
     console.log("Checkout");
 
     try {
@@ -119,17 +119,25 @@ export default function Cart() {
         return;
       }
 
-      axios.post("/api/accounts/checkout", null, {
+      const response = await axios.post("/api/accounts/checkout", null, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
-      navigate("../cart/confirmation");
+      const { orderId } = response.data; // Get the orderId from the API response
+      navigate("../cart/confirmation", {
+        state: {
+          orderId: orderId, // Pass the orderId to the confirmation page
+          items: cartItems, // Pass the cartItems as well to display the details
+        },
+        search: `?orderId=${orderId}`, // Add the orderId to the URL search
+      });
     } catch (error) {
       console.error("Error during checkout:", error);
     }
   }
+
   return (
     <div>
       <h2>Cart</h2>
