@@ -1,0 +1,65 @@
+.orderConfirmation {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.orderBorderBottom {
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+.item-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.item-table th,
+.item-table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+}
+
+.total-section {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.subtotal,
+.total-amount {
+  margin-left: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.subtotal-text,
+.total-text {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.total-amount-value {
+  font-weight: bold;
+}
+
+.ticketMainButton {
+  text-align: center;
+}
+
+.ticketMainButton button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.ticketMainButton button:hover {
+  background-color: #0056b3;
+}
