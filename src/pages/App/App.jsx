@@ -20,6 +20,7 @@ import DogHeathcareItems from "../DogItemTypes/DogHealthcareItems";
 import Cart from "../Cart/Cart";
 import PurchasedConfirmationPage from "../PurchasedConfirmationPage/PurchasedConfirmationPage";
 import BrandDetailsPage from "../BrandDetailsPage/BrandDetailsPage";
+import Favourite from "../Favourite/Favourite";
 
 export default function App() {
   const [user, setUser] = useState(getUser());
@@ -52,6 +53,7 @@ export default function App() {
             <Route path="/dog/food" element={<DogFoodItems />} />
             <Route path="/dog/treat" element={<DogTreatItems />} />
             <Route path="/dog/healthcare" element={<DogHeathcareItems />} />
+            <Route path="/favourite" element={<Favourite />} />
           </Routes>
         </>
       ) : (
