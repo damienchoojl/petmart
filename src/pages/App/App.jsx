@@ -19,6 +19,7 @@ import DogTreatItems from "../DogItemTypes/DogTreatItems";
 import DogHeathcareItems from "../DogItemTypes/DogHealthcareItems";
 import Cart from "../Cart/Cart";
 import PurchasedConfirmationPage from "../PurchasedConfirmationPage/PurchasedConfirmationPage";
+import BrandDetailsPage from "../BrandDetailsPage/BrandDetailsPage";
 
 export default function App() {
   const [user, setUser] = useState(getUser());
@@ -42,6 +43,7 @@ export default function App() {
               element={<ItemDetailsPage user={user} />}
             />
             <Route path="/brand" element={<Brand />} />
+            <Route path="/brand/:name" element={<BrandDetailsPage />} />
             <Route path="/cat" element={<Cat />} />
             <Route path="/cat/food" element={<CatFoodItems />} />
             <Route path="/cat/treat" element={<CatTreatItems />} />
