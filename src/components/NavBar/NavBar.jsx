@@ -49,9 +49,9 @@ export default function NavBar({ user, setUser }) {
         </Link>
       </div>
       <div className="nav-right">
-        {/* <Link to="/orders">Order History</Link>
-        &nbsp; | &nbsp; <Link to="/orders/new">New Order</Link> */}
-        <span>Welcome, {user.name}</span>
+        <span>
+          Welcome, <Link to="/profile">{user.name}</Link>
+        </span>
         <Link to="/favourite" className="nav-link">
           <FavoriteIcon
             sx={{ color: "grey" }}
