@@ -59,27 +59,27 @@ export default function Cart() {
     return subtotal.toFixed(2);
   };
 
-  // Function to handle increasing the quantity of an item
-  const increaseQuantity = (itemId) => {
-    setCartItems((prevItems) =>
-      prevItems.map((item) =>
-        item._id === itemId && item.quantity < item.remainStock
-          ? { ...item, quantity: item.quantity + 1 }
-          : item
-      )
-    );
-  };
+  //   // Function to handle increasing the quantity of an item
+  //   const increaseQuantity = (itemId) => {
+  //     setCartItems((prevItems) =>
+  //       prevItems.map((item) =>
+  //         item._id === itemId && item.quantity < item.remainStock
+  //           ? { ...item, quantity: item.quantity + 1 }
+  //           : item
+  //       )
+  //     );
+  //   };
 
-  // Function to handle decreasing the quantity of an item
-  const decreaseQuantity = (itemId) => {
-    setCartItems((prevItems) =>
-      prevItems.map((item) =>
-        item._id === itemId && item.quantity > 1
-          ? { ...item, quantity: item.quantity - 1 }
-          : item
-      )
-    );
-  };
+  //   // Function to handle decreasing the quantity of an item
+  //   const decreaseQuantity = (itemId) => {
+  //     setCartItems((prevItems) =>
+  //       prevItems.map((item) =>
+  //         item._id === itemId && item.quantity > 1
+  //           ? { ...item, quantity: item.quantity - 1 }
+  //           : item
+  //       )
+  //     );
+  //   };
 
   // Function to handle deleting an item from the cart
   const deleteCartItem = async (itemId) => {
@@ -125,13 +125,13 @@ export default function Cart() {
         },
       });
 
-      const { orderId } = response.data; // Get the orderId from the API response
+      const { orderId } = response.data;
       navigate("../cart/confirmation", {
         state: {
-          orderId: orderId, // Pass the orderId to the confirmation page
-          items: cartItems, // Pass the cartItems as well to display the details
+          orderId: orderId,
+          items: cartItems,
         },
-        search: `?orderId=${orderId}`, // Add the orderId to the URL search
+        search: `?orderId=${orderId}`,
       });
     } catch (error) {
       console.error("Error during checkout:", error);
@@ -148,90 +148,72 @@ export default function Cart() {
       ) : (
         <div>
           {/* Cart table */}
-          <div className="cart-table">
-            <div className="cart-table-header">
-              <div className="table-header-item">Product</div>
-              <div className="table-header-item">Qty</div>
-              <div className="table-header-item">Price</div>
-            </div>
-            {cartItems.map((item) => (
-              <div key={item._id} className="cart-table-row">
-                {/* Product image and name */}
-                <div className="table-row-item">
-                  <img
-                    src={item.image1}
-                    alt={item.name}
-                    style={{ width: "100px" }}
-                  />
-                  <p>{item.name}</p>
-                </div>
-                {/* Quantity */}
-                <div className="table-row-item table-row-qty">
-                  <button
-                    onClick={() => decreaseQuantity(item._id)}
-                    disabled={item.quantity === 1}
-                    className="quantity-button"
-                  >
-                    -
-                  </button>
-                  <span>{item.quantity}</span>
-                  <button
-                    onClick={() => increaseQuantity(item._id)}
-                    disabled={item.quantity === item.remainStock}
-                    className="quantity-button"
-                  >
-                    +
-                  </button>
-                </div>
-                {/* Price */}
-                <div className="table-row-item table-row-price">
-                  ${item.price.toFixed(2) * item.quantity}
-                </div>
-                {/* Delete button */}
-                <div className="table-row-item">
-                  <button
-                    onClick={() => deleteCartItem(item._id)}
-                    className="delete-button"
-                  >
-                    <DeleteIcon
-                      sx={{ color: "grey" }}
-                      style={{
-                        width: "20px",
-                        height: "20px",
-                        marginRight: "5px",
-                      }}
+          <table className="cart-table">
+            <thead>
+              <tr className="cart-table-header">
+                <th className="table-header-item">Product</th>
+                <th className="table-header-item">Price</th>
+                <th className="table-header-item">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {cartItems.map((item) => (
+                <tr key={item._id} className="cart-table-row">
+                  {/* Product image and name */}
+                  <td className="table-row-item">
+                    <img
+                      src={item.image1}
+                      alt={item.name}
+                      style={{ width: "100px", height: "auto" }}
                     />
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
+                    <p>{item.name}</p>
+                  </td>
+                  {/* Price */}
+                  <td className="table-row-item table-row-price">
+                    ${(item.price * item.quantity).toFixed(2)}
+                  </td>
+                  {/* Delete button */}
+                  <td className="table-row-item">
+                    <button
+                      onClick={() => deleteCartItem(item._id)}
+                      className="delete-button"
+                    >
+                      <DeleteIcon
+                        sx={{ color: "grey" }}
+                        style={{
+                          width: "20px",
+                          height: "20px",
+                          marginRight: "5px",
+                        }}
+                      />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
           <hr />
 
           {/* Total table */}
           <div className="total-table">
             <div className="total-table-row">
               <div className="total-table-item">
-                <div className="total-table-item">
-                  <LocalMallIcon
-                    sx={{ color: "grey" }}
-                    style={{
-                      width: "20px",
-                      height: "20px",
-                      marginRight: "5px",
-                    }}
-                  />
-                  Sub Total ({cartItems.length} items)
-                </div>
+                <LocalMallIcon
+                  sx={{ color: "grey" }}
+                  style={{
+                    width: "20px",
+                    height: "20px",
+                    marginRight: "5px",
+                  }}
+                />
+                Sub Total ({cartItems.length} items)
               </div>
               <div className="total-table-item">
                 Total Amount: ${calculateSubtotal()}
               </div>
               {/* Checkout button */}
               <div className="checkout-button">
-                <button onClick={handleCheckOut} className="checkout-btn">
-                  Checkout
-                </button>
+                <button onClick={handleCheckOut}>Checkout</button>
               </div>
             </div>
           </div>

@@ -1,0 +1,50 @@
+/* Cat.css */
+
+.cat-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+.category-buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.category-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: none;
+  cursor: pointer;
+  padding: 0 10px;
+  margin: 0 10px;
+}
+
+.category-button .image-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 200px;
+  background-color: #f1f1f1;
+  border-radius: 8px;
+}
+
+.category-button:hover {
+  background-color: #fff;
+}
+
+.category-button img {
+  width: 250px;
+  height: 250px;
+  border-radius: 8px;
+}
+
+.category-button span {
+  margin-bottom: 8px;
+}

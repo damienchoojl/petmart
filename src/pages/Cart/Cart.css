@@ -4,37 +4,22 @@
 }
 
 .cart-table-header {
-  display: flex;
   background-color: #f2f2f2;
   font-weight: bold;
-  flex: 1;
-  padding: 8px;
 }
 
 .table-header-item {
-  flex: 1;
-  padding: 8px;
+  padding: 12px 8px;
+  text-align: center;
 }
 
 .table-row-item {
-  padding: 8px;
+  padding: 12px 8px;
 }
 
 .table-row-item img {
   vertical-align: middle;
   margin-right: 10px;
-}
-
-.cart-table-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.table-row-qty,
-.table-row-price {
-  flex-basis: 20%;
-  text-align: center; /* Adjusted to center align Qty and Price */
 }
 
 .cart-table-row:nth-child(odd) {
@@ -53,11 +38,8 @@
 }
 
 .total-table-item {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  padding: 3px;
-  text-align: center;
+  padding: 5px;
+  text-align: right;
 }
 
 .total-table-item.qty {
@@ -73,4 +55,21 @@
   border: none;
   padding: 0;
   cursor: pointer;
+}
+
+.checkout-button {
+  text-align: center;
+}
+
+.checkout-button button {
+  padding: 10px 20px;
+  background-color: orange;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.checkout-button button:hover {
+  background-color: orangered;
 }
