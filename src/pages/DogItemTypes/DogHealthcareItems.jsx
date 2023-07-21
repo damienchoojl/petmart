@@ -72,7 +72,7 @@ export default function DogHealthcareItems() {
       <h2>Healthcare Items</h2>
       <div className="filter-search-container">
         <div>
-          <label htmlFor="filterType">Filter by Alphabet:</label>
+          <label htmlFor="filterType">Filter by Alphabet: </label>
           <select
             id="filterType"
             onChange={handleFilterChange}
@@ -88,7 +88,7 @@ export default function DogHealthcareItems() {
           </select>
         </div>
         <div>
-          <label htmlFor="searchTerm">Search by Item Name:</label>
+          <label htmlFor="searchTerm">Search by Item Name: </label>
           <input
             type="text"
             id="searchTerm"
