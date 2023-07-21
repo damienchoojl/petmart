@@ -52,7 +52,7 @@ export default function NavBar({ user, setUser }) {
         {/* <Link to="/orders">Order History</Link>
         &nbsp; | &nbsp; <Link to="/orders/new">New Order</Link> */}
         <span>Welcome, {user.name}</span>
-        <Link to="/favourites" className="nav-link">
+        <Link to="/favourite" className="nav-link">
           <FavoriteIcon
             sx={{ color: "grey" }}
             style={{
