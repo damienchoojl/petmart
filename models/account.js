@@ -24,6 +24,7 @@ const accountSchema = new Schema(
       {
         orderId: { type: String, required: true },
         items: [purchasedItemSchema],
+        createdAt: { type: Date },
       },
     ],
     itemInCart: [{ type: Schema.Types.ObjectId, ref: "Item" }],
