@@ -25,7 +25,6 @@ app.use(require("./config/checkToken"));
 app.use("/api/users", require("./routes/api/users"));
 app.use("/api/accounts", require("./routes/api/accounts"));
 app.use("/api/items", require("./routes/api/items"));
-app.use("/api/orders", require("./routes/api/orders"));
 app.use("/api/promotions", require("./routes/api/promotions"));
 
 // The following "catch all" route (note the *) is necessary
