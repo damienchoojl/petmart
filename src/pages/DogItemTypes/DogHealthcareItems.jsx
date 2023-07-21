@@ -69,7 +69,7 @@ export default function DogHealthcareItems() {
 
   return (
     <div className="dog-food-container">
-      <h2>Food Items</h2>
+      <h2>Healthcare Items</h2>
       <div className="filter-search-container">
         <div>
           <label htmlFor="filterType">Filter by Alphabet:</label>
