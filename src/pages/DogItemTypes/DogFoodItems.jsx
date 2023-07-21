@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import "./DogItem.css";
 
 export default function DogFoodItems() {
   const [items, setItems] = useState([]);
@@ -56,16 +57,27 @@ export default function DogFoodItems() {
     String.fromCharCode(97 + i)
   );
 
+  // Calculate the average rating from the comments
+  const calculateAverageRating = (comments) => {
+    if (comments.length === 0) return 0;
+    const totalRating = comments.reduce(
+      (sum, comment) => sum + comment.rating,
+      0
+    );
+    return totalRating / comments.length;
+  };
+
   return (
-    <div>
+    <div className="dog-food-container">
       <h2>Food Items</h2>
-      <div>
+      <div className="filter-search-container">
         <div>
           <label htmlFor="filterType">Filter by Alphabet:</label>
           <select
             id="filterType"
             onChange={handleFilterChange}
             value={filterType}
+            className="filter-dropdown"
           >
             <option value="all">All</option>
             {alphabets.map((alphabet) => (
@@ -83,22 +95,31 @@ export default function DogFoodItems() {
             value={searchTerm}
             onChange={handleSearchChange}
             placeholder="Enter item name..."
+            className="search-input"
           />
         </div>
         <div>
-          <button onClick={handleReset}>Reset</button>
+          <button onClick={handleReset} className="reset-button">
+            Reset
+          </button>
         </div>
       </div>
-      <div>
-        {filteredItems.map((item) => (
-          <Link key={item._id} to={`/items/${encodeURIComponent(item.name)}`}>
-            <img
-              src={item.image1}
-              alt={item.name}
-              style={{ width: "100px", height: "100px" }}
-            />
-          </Link>
-        ))}
+      <div className="items-container">
+        {filteredItems.length > 0 ? (
+          filteredItems.map((item) => (
+            <Link key={item._id} to={`/items/${encodeURIComponent(item.name)}`}>
+              <div className="item-card">
+                <img src={item.image1} alt={item.name} />
+                <h3>{item.name}</h3>
+                <p>Price: ${item.price.toFixed(2)}</p>
+                <p>Average Ratings: {calculateAverageRating(item.comments)}</p>
+                {/* Add other item details you want to display */}
+              </div>
+            </Link>
+          ))
+        ) : (
+          <p>No items matching the filters.</p>
+        )}
       </div>
     </div>
   );
