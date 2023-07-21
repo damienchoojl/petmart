@@ -1,0 +1,69 @@
+.dog-food-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+.filter-search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.filter-search-container div {
+  margin: 0 10px;
+}
+
+.filter-search-container label {
+  font-weight: bold;
+}
+
+.filter-search-container select,
+.filter-search-container input[type="text"] {
+  padding: 5px;
+  font-size: 14px;
+}
+
+.filter-search-container button {
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.items-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.item-card {
+  width: 200px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+}
+
+.item-card img {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+}
+
+.item-card h3 {
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+.item-card p {
+  margin: 5px 0;
+  font-size: 14px;
+}
