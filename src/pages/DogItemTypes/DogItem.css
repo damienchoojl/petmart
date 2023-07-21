@@ -43,9 +43,12 @@ h2 {
   flex-wrap: wrap;
   justify-content: center;
   gap: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
 .item-card {
+  flex: 0 0 calc(20% - 20px);
   width: 200px;
   border: 1px solid #ccc;
   padding: 10px;
