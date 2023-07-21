@@ -17,7 +17,6 @@ export default function PurchasedConfirmationPage({ user }) {
 
   // Function to calculate the total amount of the order (subtotal + tax + shipping, etc., if applicable)
   const calculateTotalAmount = () => {
-    // Add any additional charges or taxes here if needed
     return calculateSubtotal();
   };
 
