@@ -1,0 +1,60 @@
+.brand-details-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.brand-details-container h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.items-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 20px;
+  max-width: 1000px; /* Adjust the maximum width as needed */
+  margin: 0 auto; /* To center the items container */
+}
+
+.brand-item {
+  flex: 0 0 calc(20% - 20px); /* 20% width minus 20px for the gap */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+  min-width: 200px; /* Set a minimum width to prevent overlap */
+}
+
+.brand-item .item-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+}
+
+.brand-item .item-card img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.brand-item .item-card h3 {
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+.brand-item .item-card p {
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+.no-items-message {
+  font-size: 16px;
+  margin-top: 10px;
+}
