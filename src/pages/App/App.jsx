@@ -1,9 +1,7 @@
 import { useState } from "react";
 import "./App.css";
-// import NewOrderPage from "../NewOrderPage/NewOrderPage";
 import AuthPage from "../AuthPage/AuthPage";
 import { Route, Routes } from "react-router-dom";
-// import OrderHistoryPage from "../OrderHistoryPage/OrderHistoryPage";
 import NavBar from "../../components/NavBar/NavBar";
 import { getUser } from "../../utilities/users-service";
 import MainPage from "../MainPage/MainPage";
@@ -34,9 +32,7 @@ export default function App() {
         <>
           <NavBar user={user} setUser={setUser} />
           <Routes>
-            {/* <Route path="/orders/new" element={<NewOrderPage user={user} />} />
-            <Route path="/orders" element={<OrderHistoryPage />} /> */}
-            <Route path="/mainpage" element={<MainPage />} />
+            <Route path="/mainpage" element={<MainPage user={user} />} />
             <Route path="/cart" element={<Cart user={user} />} />
             <Route
               path="/cart/confirmation"
@@ -56,9 +52,12 @@ export default function App() {
             <Route path="/dog/food" element={<DogFoodItems />} />
             <Route path="/dog/treat" element={<DogTreatItems />} />
             <Route path="/dog/healthcare" element={<DogHeathcareItems />} />
-            <Route path="/favourite" element={<Favourite user={user} />} />
-            <Route path="/profile" element={<Profile user={user} />} />
-            <Route path="/mypets" element={<MyPets user={user} />} />
+            <Route
+              path="/favourite/:userId"
+              element={<Favourite user={user} />}
+            />
+            <Route path="/profile/:userId" element={<Profile user={user} />} />
+            <Route path="/mypets/:userId" element={<MyPets user={user} />} />
             <Route
               path="/purchasedhistory"
               element={<PurchasedHistory user={user} />}
