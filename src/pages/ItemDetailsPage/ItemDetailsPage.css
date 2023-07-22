@@ -1,13 +1,11 @@
-/* CSS for ItemDetailsPage */
-
 .item-details-container {
   display: flex;
   align-items: center;
 }
 
 .item-image {
-  max-width: 250px;
-  max-height: 350px;
+  width: 400px;
+  height: 600px;
   margin-right: 20px;
   object-fit: cover;
 }

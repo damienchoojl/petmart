@@ -97,7 +97,12 @@ export default function ItemDetailsPage({ user }) {
     <div>
       {item ? (
         <div className="item-details-container">
-          <img src={item.image1} alt={item.name} className="item-image" />
+          <img
+            src={item.image1}
+            alt={item.name}
+            className="item-image"
+            style={{ width: "250px", height: "350px" }}
+          />
           <div className="item-details">
             <h2 className="item-name">{item.name}</h2>
             <div className="average-rating">
@@ -172,7 +177,7 @@ export default function ItemDetailsPage({ user }) {
                   {comment.userId._id.substring(5).replace(/./g, "*")}
                 </p>
                 <p>Rating: {comment.rating}</p>
-                <p>Reviews: {comment.comment}</p>
+                <p>Review: {comment.comment}</p>
               </div>
             ))}
           </Slider>
