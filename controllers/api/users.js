@@ -31,6 +31,30 @@ async function login(req, res) {
   }
 }
 
+async function updatePassword(req, res) {
+  try {
+    const { userId } = req.params;
+    console.log("userId in updatePassword:", userId); // Check if userId is logged correctly
+    const { password } = req.body;
+    const hashedPassword = await bcrypt.hash(password, 10);
+    await User.findByIdAndUpdate(userId, { password: hashedPassword });
+    res.json("Password updated successfully.");
+  } catch (err) {
+    res.status(400).json(err);
+  }
+}
+
+async function updateImage(req, res) {
+  try {
+    const { userId } = req.params;
+    const { image } = req.body;
+    const user = await User.findByIdAndUpdate(userId, { image }, { new: true });
+    res.json(user);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+}
+
 /*-- Helper Functions --*/
 
 function createJWT(user) {
@@ -52,4 +76,6 @@ module.exports = {
   create,
   login,
   checkToken,
+  updatePassword,
+  updateImage,
 };
