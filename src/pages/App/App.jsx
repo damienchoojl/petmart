@@ -59,7 +59,7 @@ export default function App() {
             <Route path="/profile/:userId" element={<Profile user={user} />} />
             <Route path="/mypets/:userId" element={<MyPets user={user} />} />
             <Route
-              path="/purchasedhistory"
+              path="/purchasedhistory/:userId"
               element={<PurchasedHistory user={user} />}
             />
           </Routes>

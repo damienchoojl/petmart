@@ -52,7 +52,7 @@ export default function NavBar({ user, setUser }) {
         <span>
           Welcome, <Link to={`/profile/${user._id}`}>{user.name}</Link>
         </span>
-        <Link to="/favourite" className="nav-link">
+        <Link to={`/favourite/${user._id}`} className="nav-link">
           <FavoriteIcon
             sx={{ color: "grey" }}
             style={{
