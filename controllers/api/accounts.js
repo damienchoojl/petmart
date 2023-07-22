@@ -147,10 +147,42 @@ const checkout = async (req, res) => {
   }
 };
 
+const getPurchasedHistory = async (req, res) => {
+  try {
+    if (!req.user) {
+      return res.status(401).json({ error: "User not authenticated" });
+    }
+
+    const userId = req.user._id;
+    if (!userId) {
+      return res.status(400).json({ error: "Invalid user ID" });
+    }
+
+    const account = await Account.findOne({ user: userId })
+      .populate({
+        path: "purchasedHistory.items.itemId",
+        model: "Item",
+        select: "name price quantity image1",
+      })
+      .exec();
+
+    if (!account) {
+      return res.status(404).json({ error: "User account not found" });
+    }
+
+    const purchasedHistory = account.purchasedHistory;
+    res.status(200).json(purchasedHistory);
+  } catch (error) {
+    console.error("Failed to fetch purchased history:", error);
+    res.status(500).json({ error: "Failed to fetch purchased history" });
+  }
+};
+
 module.exports = {
   getAccounts,
   addToCart,
   getCartItems,
   deleteCartItem,
   checkout,
+  getPurchasedHistory,
 };
