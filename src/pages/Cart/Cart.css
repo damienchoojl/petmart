@@ -68,6 +68,7 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  margin-bottom: 5px;
 }
 
 .checkout-button button:hover {

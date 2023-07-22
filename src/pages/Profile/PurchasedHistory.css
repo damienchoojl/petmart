@@ -1,72 +1,78 @@
 .purchased-history-container {
-  margin: 20px;
-}
-
-h1 {
-  text-align: center;
+  padding: 20px;
 }
 
 .order-list {
-  list-style: none;
+  list-style-type: none;
   padding: 0;
-  margin: 0;
 }
 
 .order-item {
-  border: 1px solid #ddd;
-  padding: 20px;
   margin-bottom: 20px;
 }
 
 .order-details {
-  margin-bottom: 10px;
+  background-color: #f7f7f7;
+  border: 1px solid #ddd;
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-.order-details p {
-  margin: 0;
-  font-weight: bold;
+.order-details.expanded {
+  background-color: #fff;
+}
+
+.order-details:hover {
+  background-color: #eaeaea;
+}
+
+.arrow-icon {
+  display: inline-block;
+  transform: rotate(0deg);
+  transition: transform 0.3s;
+}
+
+.order-details.expanded .arrow-icon {
+  transform: rotate(180deg);
 }
 
 .item-table {
   width: 100%;
   border-collapse: collapse;
+  margin-top: 10px;
 }
 
 .item-table th,
 .item-table td {
-  padding: 10px;
-  text-align: left;
+  padding: 8px;
   border-bottom: 1px solid #ddd;
 }
 
 .item-image {
-  width: 80px;
-  height: auto;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 30%;
   margin-right: 10px;
-}
-
-.item-name {
-  font-weight: bold;
-}
-
-.item-quantity,
-.item-amount {
-  text-align: center;
 }
 
 .return-main-button {
   text-align: center;
+  margin-top: 20px;
 }
 
 .return-main-button button {
   padding: 10px 20px;
-  background-color: orange;
-  color: black;
+  background-color: #007bff;
+  color: #fff;
   border: none;
-  border-radius: 5px;
+  border-radius: 4px;
   cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
 }
 
 .return-main-button button:hover {
-  background-color: orangered;
+  background-color: #0056b3;
 }
