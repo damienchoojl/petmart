@@ -26,7 +26,13 @@ export default function PurchasedHistory() {
           }
         );
 
-        setPurchasedHistory(response.data);
+        // Combine duplicate items within each order
+        const combinedHistory = response.data.map((order) => ({
+          ...order,
+          items: combineDuplicateItems(order.items),
+        }));
+
+        setPurchasedHistory(combinedHistory);
         setError(null);
       } catch (error) {
         console.error("Failed to fetch purchased history:", error);
@@ -36,6 +42,29 @@ export default function PurchasedHistory() {
 
     fetchPurchasedHistory();
   }, []);
+
+  // Helper function to combine duplicate items within an order
+  const combineDuplicateItems = (items) => {
+    const combinedItems = [];
+    const itemMap = new Map();
+
+    items.forEach((item) => {
+      const itemId = item.itemId["$oid"];
+      const itemName = item.name;
+      const key = `${itemId}-${itemName}`;
+
+      if (itemMap.has(key)) {
+        const existingItem = itemMap.get(key);
+        existingItem.quantity += item.quantity;
+        existingItem.totalPrice += item.price * item.quantity;
+      } else {
+        itemMap.set(key, { ...item });
+      }
+    });
+
+    itemMap.forEach((value) => combinedItems.push(value));
+    return combinedItems;
+  };
 
   return (
     <div className="purchased-history-container">
@@ -62,7 +91,7 @@ export default function PurchasedHistory() {
                     </thead>
                     <tbody>
                       {order.items.map((item) => (
-                        <tr key={item.itemId}>
+                        <tr key={`${order.orderId}-${item.itemId["$oid"]}`}>
                           <td className="item-details">
                             <img
                               src={item.itemImage}
