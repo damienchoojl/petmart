@@ -82,7 +82,6 @@ export default function Profile({ user }) {
     setStatus("success");
   };
 
-  const disabled = password !== "" && password === user.password;
   const imageDisabled = image === user.image;
   const passwordDisabled =
     currentPassword === "" || password === "" || currentPassword === password;
@@ -106,6 +105,7 @@ export default function Profile({ user }) {
             <h2>{updatedUser.name}</h2>
           </div>
           <div className="input-box">
+            <h3>Change My Password</h3>
             <div>
               <label htmlFor="currentPassword">Current Password: </label>
               <input
@@ -136,6 +136,7 @@ export default function Profile({ user }) {
             </div>
           </div>
           <div className="input-box">
+            <h3>Change My Profile Image</h3>
             <label htmlFor="image">Image Link: </label>
             <input
               type="url"
