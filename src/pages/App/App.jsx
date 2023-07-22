@@ -22,6 +22,8 @@ import PurchasedConfirmationPage from "../PurchasedConfirmationPage/PurchasedCon
 import BrandDetailsPage from "../BrandDetailsPage/BrandDetailsPage";
 import Favourite from "../Favourite/Favourite";
 import Profile from "../Profile/Profile";
+import MyPets from "../Profile/MyPets";
+import PurchasedHistory from "../Profile/PurchasedHistory";
 
 export default function App() {
   const [user, setUser] = useState(getUser());
@@ -54,8 +56,13 @@ export default function App() {
             <Route path="/dog/food" element={<DogFoodItems />} />
             <Route path="/dog/treat" element={<DogTreatItems />} />
             <Route path="/dog/healthcare" element={<DogHeathcareItems />} />
-            <Route path="/favourite" element={<Favourite />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/favourite" element={<Favourite user={user} />} />
+            <Route path="/profile" element={<Profile user={user} />} />
+            <Route path="/mypets" element={<MyPets user={user} />} />
+            <Route
+              path="/purchasedhistory"
+              element={<PurchasedHistory user={user} />}
+            />
           </Routes>
         </>
       ) : (
