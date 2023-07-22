@@ -50,7 +50,7 @@ export default function NavBar({ user, setUser }) {
       </div>
       <div className="nav-right">
         <span>
-          Welcome, <Link to="/profile">{user.name}</Link>
+          Welcome, <Link to={`/profile/${user._id}`}>{user.name}</Link>
         </span>
         <Link to="/favourite" className="nav-link">
           <FavoriteIcon
