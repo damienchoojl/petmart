@@ -4,6 +4,7 @@ const { Schema, model } = mongoose;
 const purchasedItemSchema = new Schema({
   itemId: { type: Schema.Types.ObjectId, ref: "Item" },
   name: { type: String, required: true },
+  itemImage: { type: String },
   price: { type: Number, required: true },
   quantity: { type: Number, required: true },
 });

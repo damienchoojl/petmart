@@ -126,6 +126,7 @@ const checkout = async (req, res) => {
       purchasedItems.push({
         itemId: cartItem._id,
         name: cartItem.name,
+        itemImage: cartItem.image1,
         price: cartItem.price,
         quantity: 1,
       });

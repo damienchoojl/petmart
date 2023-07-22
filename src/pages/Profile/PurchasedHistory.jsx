@@ -65,7 +65,7 @@ export default function PurchasedHistory() {
                         <tr key={item.itemId}>
                           <td className="item-details">
                             <img
-                              src={item.image1}
+                              src={item.itemImage}
                               alt={item.name}
                               className="item-image"
                             />
