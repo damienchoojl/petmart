@@ -5,6 +5,7 @@ import "./PurchasedHistory.css";
 
 export default function PurchasedHistory() {
   const [purchasedHistory, setPurchasedHistory] = useState([]);
+  const [expandedOrderId, setExpandedOrderId] = useState(null); // State to track the expanded orderId
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -66,6 +67,13 @@ export default function PurchasedHistory() {
     return combinedItems;
   };
 
+  // Function to handle expanding/collapsing the dropdown for a specific orderId
+  const handleExpandOrder = (orderId) => {
+    setExpandedOrderId((prevOrderId) =>
+      prevOrderId === orderId ? null : orderId
+    );
+  };
+
   return (
     <div className="purchased-history-container">
       <h1>My Purchased History</h1>
@@ -79,35 +87,47 @@ export default function PurchasedHistory() {
           <ul className="order-list">
             {purchasedHistory.map((order) => (
               <li key={order.orderId} className="order-item">
-                <div className="order-details">
-                  <p>Order ID: {order.orderId}</p>
-                  <table className="item-table">
-                    <thead>
-                      <tr>
-                        <th>Item</th>
-                        <th>Quantity</th>
-                        <th>Amount</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {order.items.map((item) => (
-                        <tr key={`${order.orderId}-${item.itemId["$oid"]}`}>
-                          <td className="item-details">
-                            <img
-                              src={item.itemImage}
-                              alt={item.name}
-                              className="item-image"
-                            />
-                            <p className="item-name">{item.name}</p>
-                          </td>
-                          <td className="item-quantity">{item.quantity}</td>
-                          <td className="item-amount">
-                            ${(item.price * item.quantity).toFixed(2)}
-                          </td>
+                <div
+                  className={`order-details ${
+                    expandedOrderId === order.orderId ? "expanded" : ""
+                  }`}
+                  onClick={() => handleExpandOrder(order.orderId)} // Call the function on click
+                >
+                  <p>
+                    Order ID: {order.orderId}{" "}
+                    <span className="arrow-icon">
+                      {expandedOrderId === order.orderId ? "▲" : "▼"}{" "}
+                    </span>
+                  </p>
+                  {expandedOrderId === order.orderId && ( // Only show the items if expanded
+                    <table className="item-table">
+                      <thead>
+                        <tr>
+                          <th>Item</th>
+                          <th>Quantity</th>
+                          <th>Amount</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                      </thead>
+                      <tbody>
+                        {order.items.map((item) => (
+                          <tr key={`${order.orderId}-${item.itemId["$oid"]}`}>
+                            <td className="item-details">
+                              <img
+                                src={item.itemImage}
+                                alt={item.name}
+                                className="item-image"
+                              />
+                              <p className="item-name">{item.name}</p>
+                            </td>
+                            <td className="item-quantity">{item.quantity}</td>
+                            <td className="item-amount">
+                              ${(item.price * item.quantity).toFixed(2)}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  )}
                 </div>
               </li>
             ))}
