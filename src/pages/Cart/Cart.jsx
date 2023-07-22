@@ -59,28 +59,6 @@ export default function Cart() {
     return subtotal.toFixed(2);
   };
 
-  //   // Function to handle increasing the quantity of an item
-  //   const increaseQuantity = (itemId) => {
-  //     setCartItems((prevItems) =>
-  //       prevItems.map((item) =>
-  //         item._id === itemId && item.quantity < item.remainStock
-  //           ? { ...item, quantity: item.quantity + 1 }
-  //           : item
-  //       )
-  //     );
-  //   };
-
-  //   // Function to handle decreasing the quantity of an item
-  //   const decreaseQuantity = (itemId) => {
-  //     setCartItems((prevItems) =>
-  //       prevItems.map((item) =>
-  //         item._id === itemId && item.quantity > 1
-  //           ? { ...item, quantity: item.quantity - 1 }
-  //           : item
-  //       )
-  //     );
-  //   };
-
   // Function to handle deleting an item from the cart
   const deleteCartItem = async (itemId) => {
     console.log("Deleting item with ID:", itemId);
@@ -152,6 +130,7 @@ export default function Cart() {
             <thead>
               <tr className="cart-table-header">
                 <th className="table-header-item">Product</th>
+                <th className="table-header-item">Quantity</th>
                 <th className="table-header-item">Price</th>
                 <th className="table-header-item">Actions</th>
               </tr>
@@ -166,7 +145,13 @@ export default function Cart() {
                       alt={item.name}
                       style={{ width: "100px", height: "auto" }}
                     />
-                    <p>{item.name}</p>
+                    <div>
+                      <p>{item.name}</p>
+                    </div>
+                  </td>
+                  {/* Quantity */}
+                  <td className="table-row-item table-row-qty">
+                    {item.quantity}
                   </td>
                   {/* Price */}
                   <td className="table-row-item table-row-price">
