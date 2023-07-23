@@ -12,7 +12,7 @@ const purchasedItemSchema = new Schema({
 const accountSchema = new Schema(
   {
     user: { type: Schema.Types.ObjectId, ref: "User" },
-    favourites: [{ type: Schema.Types.ObjectId, ref: "Pet" }],
+    favourites: [{ type: Schema.Types.ObjectId, ref: "Item" }],
     myPets: [
       {
         name: { type: String, required: true },
