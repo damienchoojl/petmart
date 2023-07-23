@@ -241,6 +241,34 @@ const addToFavourites = async (req, res) => {
   }
 };
 
+const deleteFromFavourites = async (req, res) => {
+  const { itemId } = req.body;
+  if (!itemId) {
+    return res
+      .status(400)
+      .json({ error: "Item ID is missing in the request body." });
+  }
+
+  try {
+    const account = await Account.findOne({ user: req.user._id });
+    if (!account) {
+      return res.status(404).json({ error: "Account not found." });
+    }
+
+    // Remove the item from the user's favourites array
+    account.favourites = account.favourites.filter(
+      (favItemId) => favItemId.toString() !== itemId
+    );
+
+    await account.save();
+
+    res.json({ message: "Item removed from favourites successfully." });
+  } catch (error) {
+    console.error("Error deleting item from favourites:", error);
+    res.status(500).json({ error: "Internal server error." });
+  }
+};
+
 module.exports = {
   getAccounts,
   addToCart,
@@ -250,4 +278,5 @@ module.exports = {
   getPurchasedHistory,
   getFavouriteItems,
   addToFavourites,
+  deleteFromFavourites,
 };
