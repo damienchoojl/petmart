@@ -10,6 +10,7 @@ export default function ItemDetailsPage({ user }) {
   const [item, setItem] = useState(null);
   const [addedToCart, setAddedToCart] = useState(false);
   const [quantity, setQuantity] = useState(1);
+  const [isFavourited, setIsFavourited] = useState(false);
 
   const { name } = useParams();
 
@@ -93,6 +94,37 @@ export default function ItemDetailsPage({ user }) {
 
   const averageRating = calculateAverageRating(item ? item.comments : []);
 
+  useEffect(() => {
+    // Check if the user object exists and contains favorites before proceeding
+    if (user && user.favourites) {
+      // Check if the item is already in the user's favorites
+      if (user.favourites.includes(item?._id)) {
+        setIsFavourited(true);
+      }
+    }
+  }, [user, item]);
+
+  const handleFavouriteClick = async () => {
+    try {
+      const response = await fetch("/api/accounts/add-to-favourites", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({ itemId: item._id }),
+      });
+
+      if (response.ok) {
+        setIsFavourited(true);
+      } else {
+        console.error("Failed to add item to favourites");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div>
       {item ? (
@@ -139,6 +171,13 @@ export default function ItemDetailsPage({ user }) {
                 disabled={item.remainStock <= 0}
               >
                 Add to Cart
+              </button>
+              <button
+                className="favourite-button"
+                onClick={handleFavouriteClick}
+                disabled={isFavourited}
+              >
+                {isFavourited ? "Favourited" : "Add to Favourites"}
               </button>
             </div>
             {item.remainStock <= 0 && <p>Out of Stock</p>}
