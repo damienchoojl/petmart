@@ -51,3 +51,25 @@ h2 {
 .favourite-item button:hover {
   background-color: #0056b3;
 }
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.favourite-title-container {
+  display: flex;
+  align-items: center;
+}
+
+.favourite-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.favourite-title h2 {
+  margin-bottom: 10px;
+}

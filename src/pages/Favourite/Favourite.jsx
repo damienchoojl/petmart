@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Favourite.css";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function Favourite({ user }) {
   const [favouriteItems, setFavouriteItems] = useState([]);
@@ -55,24 +56,59 @@ export default function Favourite({ user }) {
     }
   };
 
+  const handleDeleteFromFavourites = async (itemId) => {
+    try {
+      const response = await fetch("/api/accounts/delete-from-favourites", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({
+          userId: user._id,
+          itemId: itemId,
+        }),
+      });
+
+      if (response.ok) {
+        console.log("Item removed from favourites successfully");
+        // Refresh the list of favourite items after deletion
+        fetchFavouriteItems();
+      } else {
+        console.error("Failed to remove item from favourites");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="favourite-container">
-      <h2>My Favourites: {favouriteItems.length}</h2>
-      <div className="favourite-items">
-        {favouriteItems.length > 0 ? (
-          favouriteItems.map((item) => (
-            <div className="favourite-item" key={item._id}>
-              <img src={item.image1} alt={item.name} />
-              <h3>{item.name}</h3>
-              <p>Price: ${item.price.toFixed(2)}</p>
-              <button onClick={() => handleAddToCart(item._id)}>
-                Add to Cart
-              </button>
-            </div>
-          ))
-        ) : (
-          <p>No favourite items yet</p>
-        )}
+      <div className="favourite-title">
+        <h2>My Favourites: {favouriteItems.length}</h2>
+        <div className="favourite-items">
+          {favouriteItems.length > 0 ? (
+            favouriteItems.map((item) => (
+              <div className="favourite-item" key={item._id}>
+                <Link to={`/items/${encodeURIComponent(item.name)}`}>
+                  <img src={item.image1} alt={item.name} />
+                </Link>
+                <h3>{item.name}</h3>
+                <p>Price: ${item.price.toFixed(2)}</p>
+                <div className="button-container">
+                  <button onClick={() => handleAddToCart(item._id)}>
+                    Add to Cart
+                  </button>
+                  <button onClick={() => handleDeleteFromFavourites(item._id)}>
+                    <DeleteIcon />
+                  </button>
+                </div>
+              </div>
+            ))
+          ) : (
+            <p>No favourite items yet</p>
+          )}
+        </div>
       </div>
     </div>
   );
