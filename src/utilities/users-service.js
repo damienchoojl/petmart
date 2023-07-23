@@ -24,6 +24,7 @@ export async function login(credentials) {
 
 export function logOut() {
   localStorage.removeItem("token");
+  localStorage.removeItem("user"); // Clear user data from localStorage
 }
 
 export function getToken() {
