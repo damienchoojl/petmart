@@ -67,6 +67,15 @@ export default function PurchasedHistory() {
     return combinedItems;
   };
 
+  // Function to calculate the total amount for each order
+  const calculateTotalAmount = (items) => {
+    let totalAmount = 0;
+    items.forEach((item) => {
+      totalAmount += item.price * item.quantity;
+    });
+    return totalAmount.toFixed(2);
+  };
+
   // Function to handle expanding/collapsing the dropdown for a specific orderId
   const handleExpandOrder = (orderId) => {
     setExpandedOrderId((prevOrderId) =>
@@ -100,33 +109,41 @@ export default function PurchasedHistory() {
                     </span>
                   </p>
                   {expandedOrderId === order.orderId && ( // Only show the items if expanded
-                    <table className="item-table">
-                      <thead>
-                        <tr>
-                          <th>Item</th>
-                          <th>Quantity</th>
-                          <th>Amount</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {order.items.map((item) => (
-                          <tr key={`${order.orderId}-${item.itemId["$oid"]}`}>
-                            <td className="item-details">
-                              <img
-                                src={item.itemImage}
-                                alt={item.name}
-                                className="item-image"
-                              />
-                              <p className="item-name">{item.name}</p>
-                            </td>
-                            <td className="item-quantity">{item.quantity}</td>
-                            <td className="item-amount">
-                              ${(item.price * item.quantity).toFixed(2)}
-                            </td>
+                    <div>
+                      <table className="item-table">
+                        <thead>
+                          <tr>
+                            <th>Item</th>
+                            <th>Quantity</th>
+                            <th>Amount</th>
                           </tr>
-                        ))}
-                      </tbody>
-                    </table>
+                        </thead>
+                        <tbody>
+                          {order.items.map((item) => (
+                            <tr key={`${order.orderId}-${item.itemId["$oid"]}`}>
+                              <td className="item-details">
+                                <img
+                                  src={item.itemImage}
+                                  alt={item.name}
+                                  className="item-image"
+                                />
+                                <p className="item-name">{item.name}</p>
+                              </td>
+                              <td className="item-quantity">{item.quantity}</td>
+                              <td className="item-amount">
+                                ${(item.price * item.quantity).toFixed(2)}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                      <div className="order-total">
+                        <p>Subtotal ({order.items.length} items)</p>
+                        <p>
+                          Total Amount: ${calculateTotalAmount(order.items)}
+                        </p>
+                      </div>
+                    </div>
                   )}
                 </div>
               </li>
