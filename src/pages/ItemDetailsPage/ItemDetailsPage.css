@@ -48,16 +48,19 @@
   margin-top: 10px;
 }
 
-.add-to-cart-button {
+.add-to-cart-button,
+.favourite-button {
   font-size: 16px;
   padding: 10px 20px;
   cursor: pointer;
   border: none;
   background-color: #4caf50;
   color: white;
+  margin-right: 10px;
 }
 
-.add-to-cart-button:disabled {
+.add-to-cart-button:disabled,
+.favourited {
   background-color: #ccc;
   cursor: not-allowed;
 }

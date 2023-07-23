@@ -173,7 +173,9 @@ export default function ItemDetailsPage({ user }) {
                 Add to Cart
               </button>
               <button
-                className="favourite-button"
+                className={`add-to-cart-button ${
+                  isFavourited ? "favourited" : ""
+                }`}
                 onClick={handleFavouriteClick}
                 disabled={isFavourited}
               >
