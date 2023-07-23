@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import "./Favourite.css";
 
 export default function Favourite({ user }) {
   const [favouriteItems, setFavouriteItems] = useState([]);
@@ -54,24 +56,24 @@ export default function Favourite({ user }) {
   };
 
   return (
-    <div>
-      <h1>Favourite Items</h1>
-      {favouriteItems.length > 0 ? (
-        <div>
-          {favouriteItems.map((item) => (
-            <div key={item._id}>
+    <div className="favourite-container">
+      <h2>My Favourites: {favouriteItems.length}</h2>
+      <div className="favourite-items">
+        {favouriteItems.length > 0 ? (
+          favouriteItems.map((item) => (
+            <div className="favourite-item" key={item._id}>
               <img src={item.image1} alt={item.name} />
-              <h2>{item.name}</h2>
+              <h3>{item.name}</h3>
               <p>Price: ${item.price.toFixed(2)}</p>
               <button onClick={() => handleAddToCart(item._id)}>
                 Add to Cart
               </button>
             </div>
-          ))}
-        </div>
-      ) : (
-        <p>No favourite items yet</p>
-      )}
+          ))
+        ) : (
+          <p>No favourite items yet</p>
+        )}
+      </div>
     </div>
   );
 }
