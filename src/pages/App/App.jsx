@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import AuthPage from "../AuthPage/AuthPage";
 import { Route, Routes } from "react-router-dom";
@@ -25,6 +25,11 @@ import PurchasedHistory from "../Profile/PurchasedHistory";
 
 export default function App() {
   const [user, setUser] = useState(getUser());
+
+  // Update the user state whenever the user changes
+  useEffect(() => {
+    setUser(getUser());
+  }, []);
 
   return (
     <main className="App">
