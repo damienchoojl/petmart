@@ -8,5 +8,7 @@ router.get("/get-cart-items", accountsCtrl.getCartItems);
 router.delete("/delete-cart-item", accountsCtrl.deleteCartItem);
 router.post("/checkout", accountsCtrl.checkout);
 router.get("/get-purchased-history", accountsCtrl.getPurchasedHistory);
+router.get("/get-favourite-items", accountsCtrl.getFavouriteItems);
+router.post("/add-to-favourites", accountsCtrl.addToFavourites);
 
 module.exports = router;
