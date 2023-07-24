@@ -292,6 +292,42 @@ const getMyPets = async (req, res) => {
   }
 };
 
+const addPet = async (req, res) => {
+  try {
+    // Retrieve the pet details from the request body
+    const { name, type, gender, birthday } = req.body;
+
+    // Get the user ID of the logged-in user
+    const userId = req.user._id;
+    if (!userId) {
+      return res.status(400).json({ error: "Invalid user ID" });
+    }
+
+    // Fetch the specific account based on the logged-in user's ID
+    const account = await Account.findOne({ user: userId });
+    if (!account) {
+      return res.status(404).json({ error: "User account not found" });
+    }
+
+    // Add the new pet details to the account's 'myPets' array
+    const newPet = {
+      name,
+      type,
+      gender,
+      birthday: new Date(birthday), // Convert the birthday string to a Date object
+    };
+
+    account.myPets.push(newPet);
+
+    await account.save();
+
+    res.status(201).json({ message: "New pet added successfully", newPet });
+  } catch (error) {
+    console.error("Error adding a new pet:", error);
+    res.status(500).json({ error: "Failed to add a new pet" });
+  }
+};
+
 module.exports = {
   getAccounts,
   addToCart,
@@ -303,4 +339,5 @@ module.exports = {
   addToFavourites,
   deleteFromFavourites,
   getMyPets,
+  addPet,
 };
