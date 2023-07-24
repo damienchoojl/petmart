@@ -4,6 +4,12 @@ import "./MyPets.css";
 
 const MyPets = ({ user }) => {
   const [myPets, setMyPets] = useState([]);
+  const [newPet, setNewPet] = useState({
+    name: "",
+    type: "",
+    gender: "",
+    birthday: "",
+  });
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -31,6 +37,36 @@ const MyPets = ({ user }) => {
 
     fetchMyPetsData();
   }, []);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setNewPet((prevPet) => ({ ...prevPet, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        console.error("User token not found. Please log in first.");
+        return;
+      }
+
+      const response = await axios.post("/api/accounts/add-pet", newPet, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setMyPets((prevPets) => [...prevPets, response.data.newPet]);
+      setNewPet({ name: "", type: "", gender: "M", birthday: "" });
+      setError(null);
+    } catch (error) {
+      console.error("Failed to add a new pet:", error);
+      setError("Failed to add a new pet");
+    }
+  };
 
   // Function to format the birthday without the time
   const formatBirthday = (birthday) => {
@@ -98,6 +134,54 @@ const MyPets = ({ user }) => {
             </div>
           ))
         )}
+      </div>
+      <div className="add-pet-form">
+        <h2>Add a New Pet</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="name">Name:</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={newPet.name}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="type">Type:</label>
+            <input
+              type="text"
+              id="type"
+              name="type"
+              value={newPet.type}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="gender">Gender:</label>
+            <select
+              id="gender"
+              name="gender"
+              value={newPet.gender}
+              onChange={handleChange}
+            >
+              <option value="M">Male</option>
+              <option value="F">Female</option>
+            </select>
+          </div>
+          <div className="form-group">
+            <label htmlFor="birthday">Birthday:</label>
+            <input
+              type="date"
+              id="birthday"
+              name="birthday"
+              value={newPet.birthday}
+              onChange={handleChange}
+            />
+          </div>
+          <button type="submit">Add Pet</button>
+        </form>
       </div>
     </div>
   );
