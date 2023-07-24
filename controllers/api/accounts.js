@@ -328,6 +328,45 @@ const addPet = async (req, res) => {
   }
 };
 
+const deletePet = async (req, res) => {
+  try {
+    // Get the user ID of the logged-in user
+    const userId = req.user._id;
+    if (!userId) {
+      return res.status(400).json({ error: "Invalid user ID" });
+    }
+
+    // Fetch the specific account based on the logged-in user's ID
+    const account = await Account.findOne({ user: userId });
+    if (!account) {
+      return res.status(404).json({ error: "User account not found" });
+    }
+
+    const petId = req.params.petId;
+
+    // Check if the pet exists and belongs to the user
+    const petToDelete = account.myPets.find(
+      (pet) => pet._id.toString() === petId
+    );
+    if (!petToDelete) {
+      return res.status(404).json({ error: "Pet not found" });
+    }
+
+    // Remove the pet from the account's 'myPets' array
+    account.myPets = account.myPets.filter(
+      (pet) => pet._id.toString() !== petId
+    );
+
+    // Save the updated account
+    await account.save();
+
+    res.json({ message: "Pet deleted successfully" });
+  } catch (error) {
+    console.error("Failed to delete the pet:", error);
+    res.status(500).json({ error: "Failed to delete the pet" });
+  }
+};
+
 module.exports = {
   getAccounts,
   addToCart,
@@ -340,4 +379,5 @@ module.exports = {
   deleteFromFavourites,
   getMyPets,
   addPet,
+  deletePet,
 };

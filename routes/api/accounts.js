@@ -13,5 +13,6 @@ router.post("/add-to-favourites", accountsCtrl.addToFavourites);
 router.post("/delete-from-favourites", accountsCtrl.deleteFromFavourites);
 router.get("/mypets", accountsCtrl.getMyPets);
 router.post("/add-pet", accountsCtrl.addPet);
+router.delete("/delete-pet/:petId", accountsCtrl.deletePet);
 
 module.exports = router;
