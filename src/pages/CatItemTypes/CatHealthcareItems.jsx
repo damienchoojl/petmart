@@ -64,7 +64,7 @@ export default function CatHealthcareItems() {
       (sum, comment) => sum + comment.rating,
       0
     );
-    return totalRating / comments.length;
+    return (totalRating / comments.length).toFixed(1);
   };
 
   return (
