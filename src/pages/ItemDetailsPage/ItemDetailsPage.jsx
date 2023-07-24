@@ -11,6 +11,9 @@ export default function ItemDetailsPage({ user }) {
   const [addedToCart, setAddedToCart] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const [isFavourited, setIsFavourited] = useState(false);
+  const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState("");
+  const [reviewAdded, setReviewAdded] = useState(false);
 
   const { name } = useParams();
 
@@ -125,6 +128,27 @@ export default function ItemDetailsPage({ user }) {
     }
   };
 
+  const handleAddReview = async () => {
+    try {
+      const response = await fetch(`/api/items/${item._id}/add-review`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({ rating, comment }),
+      });
+
+      if (response.ok) {
+        setReviewAdded(true);
+      } else {
+        console.error("Failed to add review");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div>
       {item ? (
@@ -184,6 +208,32 @@ export default function ItemDetailsPage({ user }) {
             </div>
             {item.remainStock <= 0 && <p>Out of Stock</p>}
             {addedToCart && <p>Added to cart successfully</p>}
+            {reviewAdded && <p>Review added successfully</p>}
+            {!isFavourited && (
+              <div>
+                <h3>Write a Review:</h3>
+                <div>
+                  <label>Rating: </label>
+                  <input
+                    type="number"
+                    min="1"
+                    max="5"
+                    value={rating}
+                    onChange={(e) => setRating(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <label>Comment: </label>
+                  <textarea
+                    rows="4"
+                    cols="50"
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
+                  />
+                </div>
+                <button onClick={handleAddReview}>Submit Review</button>
+              </div>
+            )}
           </div>
         </div>
       ) : (
