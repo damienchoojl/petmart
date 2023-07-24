@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import "./MyPets.css";
 
@@ -11,6 +11,8 @@ const MyPets = ({ user }) => {
     birthday: "",
   });
   const [error, setError] = useState(null);
+
+  const sliderRef = useRef(null);
 
   useEffect(() => {
     const fetchMyPetsData = async () => {
@@ -68,6 +70,26 @@ const MyPets = ({ user }) => {
     }
   };
 
+  const handlePrevious = () => {
+    if (sliderRef.current) {
+      sliderRef.current.scrollBy({
+        top: 0,
+        left: -300,
+        behavior: "smooth",
+      });
+    }
+  };
+
+  const handleNext = () => {
+    if (sliderRef.current) {
+      sliderRef.current.scrollBy({
+        top: 0,
+        left: 300,
+        behavior: "smooth",
+      });
+    }
+  };
+
   // Function to format the birthday without the time
   const formatBirthday = (birthday) => {
     const date = new Date(birthday);
@@ -86,21 +108,29 @@ const MyPets = ({ user }) => {
 
     let years = currentDate.getFullYear() - birthDate.getFullYear();
     let months = currentDate.getMonth() - birthDate.getMonth();
+    let days = currentDate.getDate() - birthDate.getDate();
 
-    if (
-      months < 0 ||
-      (months === 0 && currentDate.getDate() < birthDate.getDate())
-    ) {
+    if (days < 0) {
+      months--;
+      const daysInLastMonth = new Date(
+        currentDate.getFullYear(),
+        currentDate.getMonth(),
+        0
+      ).getDate();
+      days += daysInLastMonth;
+    }
+
+    if (months < 0) {
       years--;
       months += 12;
     }
 
-    return { years, months };
+    return { years, months, days };
   };
 
   // Function to format the age as years and months
   const formatAge = (age) => {
-    const { years, months } = age;
+    const { years, months, days } = age;
     let ageString = years > 0 ? `${years} year${years > 1 ? "s" : ""}` : "";
     if (months > 0) {
       ageString +=
@@ -108,32 +138,43 @@ const MyPets = ({ user }) => {
           ? `, ${months} month${months > 1 ? "s" : ""}`
           : `${months} month${months > 1 ? "s" : ""}`;
     }
+    if (days > 0) {
+      ageString +=
+        (years > 0 || months > 0 ? ", " : "") +
+        `${days} day${days > 1 ? "s" : ""}`;
+    }
     return ageString;
   };
 
   return (
     <div className="my-pets-container">
       <h1>My Pets</h1>
-      <div className="slider">
-        {error ? (
-          <p>Error: {error}</p>
-        ) : myPets.length === 0 ? (
-          <p>No pets found.</p>
-        ) : (
-          myPets.map((pet) => (
-            <div key={pet._id} className="pet-card">
-              <p className="pet-name">Name: {pet.name}</p>
-              <p className="pet-type">Type: {pet.type}</p>
-              <p className="pet-gender">Gender: {pet.gender}</p>
-              <p className="pet-birthday">
-                Birthday: {formatBirthday(pet.birthday)}
-              </p>
-              <p className="pet-age">
-                Age: {formatAge(calculateAge(pet.birthday))}
-              </p>
-            </div>
-          ))
-        )}
+      <div className="slider-container">
+        <div className="slider" ref={sliderRef}>
+          {error ? (
+            <p>Error: {error}</p>
+          ) : myPets.length === 0 ? (
+            <p>No pets found.</p>
+          ) : (
+            myPets.map((pet) => (
+              <div key={pet._id} className="pet-card">
+                <p className="pet-name">Name: {pet.name}</p>
+                <p className="pet-type">Type: {pet.type}</p>
+                <p className="pet-gender">Gender: {pet.gender}</p>
+                <p className="pet-birthday">
+                  Birthday: {formatBirthday(pet.birthday)}
+                </p>
+                <p className="pet-age">
+                  Age: {formatAge(calculateAge(pet.birthday))}
+                </p>
+              </div>
+            ))
+          )}
+        </div>
+        <div className="slider-controls">
+          <button onClick={handlePrevious}>&lt;</button>
+          <button onClick={handleNext}>&gt;</button>
+        </div>
       </div>
       <div className="add-pet-form">
         <h2>Add a New Pet</h2>
