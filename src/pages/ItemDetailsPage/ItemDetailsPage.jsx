@@ -182,6 +182,7 @@ export default function ItemDetailsPage({ user }) {
               )}
             </div>
             <p className="item-price">Price: ${item.price.toFixed(2)}</p>
+            <p>Remaining Stock: {item.remainStock}</p>
             <div className="quantity-container">
               Quantity
               <button
