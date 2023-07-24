@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import "./MyPets.css";
 
 const MyPets = ({ user }) => {
@@ -90,6 +91,27 @@ const MyPets = ({ user }) => {
     }
   };
 
+  const handleDeletePet = async (petId) => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        console.error("User token not found. Please log in first.");
+        return;
+      }
+
+      await axios.delete(`/api/accounts/delete-pet/${petId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setMyPets((prevPets) => prevPets.filter((pet) => pet._id !== petId));
+    } catch (error) {
+      console.error("Failed to delete the pet:", error);
+      setError("Failed to delete the pet");
+    }
+  };
+
   // Function to format the birthday without the time
   const formatBirthday = (birthday) => {
     const date = new Date(birthday);
@@ -158,6 +180,12 @@ const MyPets = ({ user }) => {
           ) : (
             myPets.map((pet) => (
               <div key={pet._id} className="pet-card">
+                <button
+                  className="delete-button"
+                  onClick={() => handleDeletePet(pet._id)}
+                >
+                  <DeleteForeverIcon />
+                </button>
                 <p className="pet-name">Name: {pet.name}</p>
                 <p className="pet-type">Type: {pet.type}</p>
                 <p className="pet-gender">Gender: {pet.gender}</p>
@@ -180,7 +208,7 @@ const MyPets = ({ user }) => {
         <h2>Add a New Pet</h2>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="name">Name:</label>
+            <label htmlFor="name">Name: </label>
             <input
               type="text"
               id="name"
@@ -190,7 +218,7 @@ const MyPets = ({ user }) => {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="type">Type:</label>
+            <label htmlFor="type">Type: </label>
             <input
               type="text"
               id="type"
@@ -200,7 +228,7 @@ const MyPets = ({ user }) => {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="gender">Gender:</label>
+            <label htmlFor="gender">Gender: </label>
             <select
               id="gender"
               name="gender"
@@ -212,7 +240,7 @@ const MyPets = ({ user }) => {
             </select>
           </div>
           <div className="form-group">
-            <label htmlFor="birthday">Birthday:</label>
+            <label htmlFor="birthday">Birthday: </label>
             <input
               type="date"
               id="birthday"
