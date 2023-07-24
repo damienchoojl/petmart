@@ -210,9 +210,13 @@ export default function ItemDetailsPage({ user }) {
             {addedToCart && <p>Added to cart successfully</p>}
             {reviewAdded && <p>Review added successfully</p>}
             {!isFavourited && (
-              <div>
+              <div className="write-review-container">
+                {" "}
+                {/* Added class name here */}
                 <h3>Write a Review:</h3>
-                <div>
+                <div className="review-input">
+                  {" "}
+                  {/* Added class name here */}
                   <label>Rating: </label>
                   <input
                     type="number"
@@ -222,7 +226,9 @@ export default function ItemDetailsPage({ user }) {
                     onChange={(e) => setRating(e.target.value)}
                   />
                 </div>
-                <div>
+                <div className="review-input">
+                  {" "}
+                  {/* Added class name here */}
                   <label>Comment: </label>
                   <textarea
                     rows="4"
@@ -231,7 +237,17 @@ export default function ItemDetailsPage({ user }) {
                     onChange={(e) => setComment(e.target.value)}
                   />
                 </div>
-                <button onClick={handleAddReview}>Submit Review</button>
+                <button
+                  className="submit-review-button"
+                  onClick={handleAddReview}
+                >
+                  Submit Review
+                </button>{" "}
+                {/* Added class name here */}
+                {reviewAdded && (
+                  <p className="review-success">Review added successfully</p>
+                )}{" "}
+                {/* Added class name here */}
               </div>
             )}
           </div>
