@@ -11,5 +11,6 @@ router.get("/get-purchased-history", accountsCtrl.getPurchasedHistory);
 router.get("/get-favourite-items", accountsCtrl.getFavouriteItems);
 router.post("/add-to-favourites", accountsCtrl.addToFavourites);
 router.post("/delete-from-favourites", accountsCtrl.deleteFromFavourites);
+router.get("/mypets", accountsCtrl.getMyPets);
 
 module.exports = router;

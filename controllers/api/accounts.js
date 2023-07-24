@@ -269,6 +269,29 @@ const deleteFromFavourites = async (req, res) => {
   }
 };
 
+const getMyPets = async (req, res) => {
+  try {
+    // Get the user ID of the logged-in user
+    const userId = req.user._id;
+    if (!userId) {
+      return res.status(400).json({ error: "Invalid user ID" });
+    }
+
+    // Fetch the specific account based on the logged-in user's ID
+    const account = await Account.findOne({ user: userId }).populate("myPets");
+    if (!account) {
+      return res.status(404).json({ error: "User account not found" });
+    }
+
+    const myPets = account.myPets;
+    // Include the user ID in the response
+    res.status(200).json({ userId, myPets });
+  } catch (error) {
+    console.error("Failed to fetch myPets data:", error);
+    res.status(500).json({ error: "Failed to fetch myPets data" });
+  }
+};
+
 module.exports = {
   getAccounts,
   addToCart,
@@ -279,4 +302,5 @@ module.exports = {
   getFavouriteItems,
   addToFavourites,
   deleteFromFavourites,
+  getMyPets,
 };
