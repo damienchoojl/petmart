@@ -129,6 +129,16 @@ export default function ItemDetailsPage({ user }) {
   };
 
   const handleAddReview = async () => {
+    // Check if the rating is greater than 5 and show an error
+    if (rating > 5) {
+      alert("Rating cannot be greater than 5.");
+      return; // Exit the function if the rating is invalid
+    }
+    if (rating < 0) {
+      alert("Rating cannot be lesser than 0.");
+      return;
+    }
+
     try {
       const response = await fetch(`/api/items/${item._id}/add-review`, {
         method: "POST",
@@ -211,12 +221,8 @@ export default function ItemDetailsPage({ user }) {
             {reviewAdded && <p>Review added successfully</p>}
             {!isFavourited && (
               <div className="write-review-container">
-                {" "}
-                {/* Added class name here */}
                 <h3>Write a Review:</h3>
                 <div className="review-input">
-                  {" "}
-                  {/* Added class name here */}
                   <label>Rating: </label>
                   <input
                     type="number"
@@ -227,8 +233,6 @@ export default function ItemDetailsPage({ user }) {
                   />
                 </div>
                 <div className="review-input">
-                  {" "}
-                  {/* Added class name here */}
                   <label>Comment: </label>
                   <textarea
                     rows="4"
@@ -240,14 +244,13 @@ export default function ItemDetailsPage({ user }) {
                 <button
                   className="submit-review-button"
                   onClick={handleAddReview}
+                  disabled={rating === 0 || comment.trim() === ""}
                 >
                   Submit Review
-                </button>{" "}
-                {/* Added class name here */}
+                </button>
                 {reviewAdded && (
                   <p className="review-success">Review added successfully</p>
-                )}{" "}
-                {/* Added class name here */}
+                )}
               </div>
             )}
           </div>
@@ -280,7 +283,7 @@ export default function ItemDetailsPage({ user }) {
             {item.comments.map((comment) => (
               <div key={comment._id}>
                 <p>
-                  User ID: {comment.userId._id.substring(0, 5)}
+                  User: {comment.userId._id.substring(0, 5)}
                   {comment.userId._id.substring(5).replace(/./g, "*")}
                 </p>
                 <p>Rating: {comment.rating}</p>

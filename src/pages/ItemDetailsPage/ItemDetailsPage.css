@@ -144,3 +144,9 @@
   margin-top: 10px;
   font-weight: bold;
 }
+
+.submit-review-button:disabled {
+  background-color: #ccc;
+  color: #fff;
+  cursor: not-allowed;
+}
