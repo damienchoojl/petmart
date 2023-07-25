@@ -37,7 +37,30 @@ const addReview = async (req, res) => {
   }
 };
 
+const updateItem = async (req, res) => {
+  const { itemId } = req.params;
+  const { price, remainStock } = req.body;
+
+  try {
+    const item = await Item.findByIdAndUpdate(
+      itemId,
+      { price, remainStock },
+      { new: true } // To return the updated item
+    );
+
+    if (!item) {
+      return res.status(404).json({ message: "Item not found" });
+    }
+
+    res.status(200).json({ message: "Item updated successfully", item });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Failed to update item" });
+  }
+};
+
 module.exports = {
   index,
   addReview,
+  updateItem,
 };
