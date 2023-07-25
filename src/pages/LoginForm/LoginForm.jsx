@@ -1,9 +1,12 @@
 import { useState } from "react";
 import * as usersService from "../../utilities/users-service";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import "./LoginForm.css";
 
 export default function LoginForm({ setUser }) {
   const navigate = useNavigate();
+  const location = useLocation();
+  const selectedItem = location.state;
 
   const [credentials, setCredentials] = useState({
     email: "",
@@ -55,6 +58,19 @@ export default function LoginForm({ setUser }) {
         </form>
       </div>
       <p className="error-message">&nbsp;{error}</p>
+      <p className="sign-up-message">
+        New to Pet Mart?{" "}
+        <Link to="/signup" className="sign-up-link">
+          Sign up now.
+        </Link>
+      </p>
+      {selectedItem && (
+        <div className="selected-item">
+          <h2>Selected Item:</h2>
+          <p>Name: {selectedItem.name}</p>
+          {/* Add other item details you want to display */}
+        </div>
+      )}
     </div>
   );
 }
