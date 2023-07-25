@@ -22,8 +22,16 @@ export default function HoldingPageNavBar() {
       </div>
       <div className="nav-right">
         <Link to="/login" className="nav-link">
-          <LoginIcon />
-          Login
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <LoginIcon />
+            <span>Login</span>
+          </div>
         </Link>
       </div>
     </nav>
