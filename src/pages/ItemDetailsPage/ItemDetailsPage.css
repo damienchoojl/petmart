@@ -40,6 +40,8 @@
   padding: 5px 10px;
   margin: 0 5px;
   cursor: pointer;
+  font-size: 16px;
+  border-radius: 4px;
 }
 
 .add-to-cart-container {
@@ -57,12 +59,19 @@
   background-color: #4caf50;
   color: white;
   margin-right: 10px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
 }
 
 .add-to-cart-button:disabled,
 .favourited {
   background-color: #ccc;
   cursor: not-allowed;
+}
+
+.add-to-cart-button:hover,
+.favourite-button:hover {
+  background-color: #45a049;
 }
 
 .product-details-container {
@@ -137,6 +146,7 @@
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
 .review-success {
@@ -148,5 +158,30 @@
 .submit-review-button:disabled {
   background-color: #ccc;
   color: #fff;
+  cursor: not-allowed;
+}
+
+.submit-review-button:hover {
+  background-color: #45a049;
+}
+
+.edit-item-details button {
+  font-size: 14px;
+  padding: 3px 8px;
+  cursor: pointer;
+  border: none;
+  background-color: grey;
+  color: white;
+  margin-left: 10px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.edit-item-details button:hover {
+  background-color: darkgray;
+}
+
+.edit-item-details button:disabled {
+  background-color: #ccc;
   cursor: not-allowed;
 }

@@ -5,6 +5,7 @@ import { StarRate as StarRateIcon } from "@mui/icons-material";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "../ItemDetailsPage/ItemDetailsPage.css";
+import EditIcon from "@mui/icons-material/Edit";
 
 export default function ItemDetailsPage({ user }) {
   const [item, setItem] = useState(null);
@@ -14,6 +15,8 @@ export default function ItemDetailsPage({ user }) {
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
   const [reviewAdded, setReviewAdded] = useState(false);
+  const [editedPrice, setEditedPrice] = useState(null);
+  const [editedRemainStock, setEditedRemainStock] = useState(null);
 
   const { name } = useParams();
 
@@ -30,6 +33,23 @@ export default function ItemDetailsPage({ user }) {
     autoplay: true,
     autoplaySpeed: 5000,
   };
+
+  // const fetchItem = async (itemName) => {
+  //   try {
+  //     const response = await fetch(
+  //       `/api/items?name=${encodeURIComponent(itemName)}`
+  //     );
+  //     if (response.ok) {
+  //       const data = await response.json();
+  //       const selectedItem = data.items.find((item) => item.name === itemName);
+  //       setItem(selectedItem);
+  //     } else {
+  //       console.error("Failed to fetch item details");
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   const fetchItem = async (itemName) => {
     try {
@@ -159,6 +179,48 @@ export default function ItemDetailsPage({ user }) {
     }
   };
 
+  const handleSaveChanges = async () => {
+    try {
+      if (editedPrice === null && editedRemainStock === null) {
+        console.log("No changes made.");
+        return;
+      }
+
+      // Prepare the payload to be updated in the database
+      const updatedFields = {};
+      if (editedPrice !== null) {
+        updatedFields.price = Number(editedPrice); // Convert to JavaScript number
+      }
+      if (editedRemainStock !== null) {
+        updatedFields.remainStock = editedRemainStock;
+      }
+
+      // Make API call to update the item in the database
+      const response = await fetch(`/api/items/${item._id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify(updatedFields),
+      });
+
+      if (response.ok) {
+        // Update the item state with the edited values
+        setItem((prevItem) => ({
+          ...prevItem,
+          ...updatedFields,
+        }));
+        setEditedPrice(null);
+        setEditedRemainStock(null);
+      } else {
+        console.error("Failed to save changes.");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div>
       {item ? (
@@ -171,6 +233,60 @@ export default function ItemDetailsPage({ user }) {
           />
           <div className="item-details">
             <h2 className="item-name">{item.name}</h2>
+            {user && user.email.endsWith("@admin.com") && (
+              <>
+                <div className="edit-item-details">
+                  <label>Price:</label>
+                  {editedPrice !== null ? (
+                    <input
+                      type="number"
+                      value={editedPrice}
+                      onChange={(e) => setEditedPrice(e.target.value)}
+                    />
+                  ) : (
+                    <span>${item.price.toFixed(2)}</span>
+                  )}
+                  {editedPrice !== null ? (
+                    <button onClick={() => handleSaveChanges()}>Save</button>
+                  ) : (
+                    <button onClick={() => setEditedPrice(item.price)}>
+                      <EditIcon
+                        style={{
+                          width: "15px",
+                          height: "15px",
+                        }}
+                      />
+                    </button>
+                  )}
+                </div>
+                <div className="edit-item-details">
+                  <label>Remaining Stock:</label>
+                  {editedRemainStock !== null ? (
+                    <input
+                      type="number"
+                      value={editedRemainStock}
+                      onChange={(e) => setEditedRemainStock(e.target.value)}
+                    />
+                  ) : (
+                    <span>{item.remainStock}</span>
+                  )}
+                  {editedRemainStock !== null ? (
+                    <button onClick={() => handleSaveChanges()}>Save</button>
+                  ) : (
+                    <button
+                      onClick={() => setEditedRemainStock(item.remainStock)}
+                    >
+                      <EditIcon
+                        style={{
+                          width: "15px",
+                          height: "15px",
+                        }}
+                      />
+                    </button>
+                  )}
+                </div>
+              </>
+            )}
             <div className="average-rating">
               {averageRating ? (
                 <>
