@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import AuthPage from "../AuthPage/AuthPage";
 import { Route, Routes } from "react-router-dom";
 import NavBar from "../../components/NavBar/NavBar";
 import { getUser } from "../../utilities/users-service";
@@ -22,6 +21,9 @@ import Favourite from "../Favourite/Favourite";
 import Profile from "../Profile/Profile";
 import MyPets from "../Profile/MyPets";
 import PurchasedHistory from "../Profile/PurchasedHistory";
+import SignUpForm from "../../components/SignUpForm/SignUpForm";
+import LoginForm from "../LoginForm/LoginForm";
+import MainHoldingPage from "../MainPage/MainHoldingPage";
 
 export default function App() {
   const [user, setUser] = useState(getUser());
@@ -70,7 +72,11 @@ export default function App() {
           </Routes>
         </>
       ) : (
-        <AuthPage setUser={setUser} />
+        <Routes>
+          <Route path="/" element={<MainHoldingPage />} />
+          <Route path="/login" element={<LoginForm setUser={setUser} />} />
+          <Route path="/signup" element={<SignUpForm setUser={setUser} />} />
+        </Routes>
       )}
     </main>
   );
