@@ -399,10 +399,7 @@ export default function ItemDetailsPage({ user }) {
           <Slider {...carouselSettings}>
             {item.comments.map((comment) => (
               <div key={comment._id}>
-                <p>
-                  User: {comment.userId._id.substring(0, 5)}
-                  {comment.userId._id.substring(5).replace(/./g, "*")}
-                </p>
+                <p>User: {comment.userId.name}</p>
                 <p>Rating: {comment.rating}</p>
                 <p>Review: {comment.comment}</p>
               </div>
