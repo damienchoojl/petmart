@@ -8,16 +8,14 @@ export default function HoldingPageNavBar() {
     <nav className="navbar">
       <div className="nav-left">
         <div className="nav-logo-container">
-          <Link to="/" className="nav-logo">
-            <img
-              src="https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_256,w_256,f_auto,q_auto:eco,dpr_1/wexaikkloejtsgnng6wy"
-              alt="Logo"
-              style={{
-                maxWidth: "150px",
-                maxHeight: "150px",
-              }}
-            />
-          </Link>
+          <img
+            src="https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_256,w_256,f_auto,q_auto:eco,dpr_1/wexaikkloejtsgnng6wy"
+            alt="Logo"
+            style={{
+              maxWidth: "150px",
+              maxHeight: "150px",
+            }}
+          />
         </div>
       </div>
       <div className="nav-right">
