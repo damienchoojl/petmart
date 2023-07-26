@@ -1,6 +1,8 @@
 // Import all named exports attached to a usersAPI object
 // This syntax can be helpful documenting where the methods come from
 import * as usersAPI from "./users-api";
+import sendRequest from "./send-request";
+const BASE_URL = "/api/users";
 
 export async function signUp(userData) {
   try {
@@ -16,13 +18,9 @@ export async function signUp(userData) {
 }
 
 export async function login(credentials) {
-  // Delegate the network request code to the users-api.js API module
-  // which will ultimately return a JSON Web Token (JWT)
-  const token = await usersAPI.login(credentials);
-  // Persist the "token"
-  localStorage.setItem("token", token);
-  // Baby step by returning whatever is sent back by the server
-  return getUser();
+  const token = await sendRequest(`${BASE_URL}/login`, "POST", credentials);
+  const user = getToken() ? getToken().user : null;
+  return { token, user };
 }
 
 export function logOut() {
@@ -56,9 +54,22 @@ export function getToken() {
 
 export function getUser() {
   const token = getToken();
-  // If there's a token, return the user in the payload, otherwise return null
-  // return token ? JSON.parse(atob(token.split(".")[1])).user : null;
-  return token ? token.user : null;
+
+  if (token) {
+    try {
+      const payload = JSON.parse(atob(token.split(".")[1]));
+      if (payload.exp < Date.now() / 1000) {
+        localStorage.removeItem("token");
+        return null;
+      }
+      return payload.user; // Changed this line to return payload.user instead of token.user
+    } catch (error) {
+      localStorage.removeItem("token");
+      return null;
+    }
+  }
+
+  return null;
 }
 
 export function checkToken() {

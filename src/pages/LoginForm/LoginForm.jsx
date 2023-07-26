@@ -20,15 +20,18 @@ export default function LoginForm({ setUser }) {
   }
 
   async function handleSubmit(evt) {
-    // Prevent form from being submitted to the server
     evt.preventDefault();
     try {
-      // The promise returned by the signUp service method
-      // will resolve to the user object included in the
-      // payload of the JSON Web Token (JWT)
-      const user = await usersService.login(credentials);
-      setUser(user);
-      navigate("/mainpage");
+      const response = await usersService.login(credentials);
+      console.log("Login response:", response);
+      if (response.token) {
+        localStorage.setItem("token", response.token);
+        const user = await usersService.getUser();
+        setUser(user);
+        navigate("/mainpage");
+      } else {
+        setError("Log In Failed - Try Again");
+      }
     } catch {
       setError("Log In Failed - Try Again");
     }
