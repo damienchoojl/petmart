@@ -3,7 +3,6 @@ import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import NavBar from "../../components/NavBar/NavBar";
 import { getUser } from "../../utilities/users-service";
-import MainPage from "../MainPage/MainPage";
 import ItemDetailsPage from "../ItemDetailsPage/ItemDetailsPage";
 import Brand from "../../components/NavBar/Brand";
 import Cat from "../../components/NavBar/Cat";
@@ -24,6 +23,7 @@ import PurchasedHistory from "../Profile/PurchasedHistory";
 import SignUpForm from "../../components/SignUpForm/SignUpForm";
 import LoginForm from "../LoginForm/LoginForm";
 import MainHoldingPage from "../MainPage/MainHoldingPage";
+import MainPage from "../MainPage/MainPage";
 
 export default function App() {
   const [user, setUser] = useState(getUser());

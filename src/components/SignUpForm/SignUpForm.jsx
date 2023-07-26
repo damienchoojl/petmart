@@ -21,24 +21,32 @@ export default function SignUpForm({ setUser }) {
   };
 
   const handleSubmit = async (evt) => {
-    // Prevent form from being submitted to the server
     evt.preventDefault();
 
     try {
-      // We don't want to send the 'error' or 'confirm' property,
-      // so let's make a copy of the state object, then delete them
       const cleanedFormData = { ...formData };
       delete cleanedFormData.error;
       delete cleanedFormData.confirm;
 
-      // The promise returned by the signUp service method
-      // will resolve to the user object included in the
-      // payload of the JSON Web Token (JWT)
+      console.log("Sending sign-up request with data:", cleanedFormData);
+
       const user = await signUp(cleanedFormData);
-      setUser(user);
-      navigate("/mainpage"); // Navigate to /mainpage after successful sign up
-    } catch {
-      // An error occurred
+
+      console.log("Sign-up response:", user);
+
+      if (user) {
+        setUser(user);
+        navigate("/mainpage");
+      } else {
+        console.log("No user object returned from signup.");
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          error: "Sign Up Failed - Try Again",
+        }));
+      }
+    } catch (error) {
+      console.log("Sign-up error:", error);
+
       setFormData((prevFormData) => ({
         ...prevFormData,
         error: "Sign Up Failed - Try Again",

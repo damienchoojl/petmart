@@ -6,7 +6,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import "../MainPage/MainPage.css";
 
-const MainPage = () => {
+export default function MainPage() {
   const [items, setItems] = useState([]);
   const [promotions, setPromotions] = useState([]);
   const carouselSettings = {
@@ -187,6 +187,4 @@ const MainPage = () => {
       </div>
     </div>
   );
-};
-
-export default MainPage;
+}

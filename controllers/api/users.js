@@ -1,21 +1,35 @@
 const User = require("../../models/user");
+const Account = require("../../models/account");
 const jwt = require("jsonwebtoken");
 // Be Sure to add the following
 const bcrypt = require("bcrypt");
 
 async function create(req, res) {
   try {
-    // Add the user to the database
-    const user = await User.create(req.body);
-    // token will be a string
-    const token = createJWT(user);
-    // Yes, we can use res.json to send back just a string
-    // The client code needs to take this into consideration
-    res.json(token);
+    console.log("Creating a new user...");
+    const { name, email, password } = req.body;
+
+    // Check if the email already exists in the database
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ error: "Email already exists" });
+    }
+
+    // Create the user and the associated account
+    const newUser = await User.create({ name, email, password });
+    console.log("New user created:", newUser);
+
+    const newAccount = await Account.create({ user: newUser._id });
+    console.log("New account created:", newAccount);
+
+    // Create a JWT token for the user
+    const token = createJWT(newUser);
+
+    // Return the token and any other necessary information
+    res.json({ token, user: newUser });
   } catch (err) {
-    // Client will check for non-2xx status code
-    // 400 = Bad Request
-    res.status(400).json(err);
+    console.log("Error in signup:", err);
+    res.status(400).json({ error: "Sign Up Failed - Try Again" });
   }
 }
 
