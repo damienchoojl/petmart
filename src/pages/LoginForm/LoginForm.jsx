@@ -67,13 +67,6 @@ export default function LoginForm({ setUser }) {
           Sign up now.
         </Link>
       </p>
-      {selectedItem && (
-        <div className="selected-item">
-          <h2>Selected Item:</h2>
-          <p>Name: {selectedItem.name}</p>
-          {/* Add other item details you want to display */}
-        </div>
-      )}
     </div>
   );
 }
