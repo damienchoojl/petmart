@@ -47,11 +47,6 @@ export default function Brand() {
     )
   );
 
-  // Generate options for all alphabets
-  const alphabets = Array.from({ length: 26 }, (_, i) =>
-    String.fromCharCode(97 + i)
-  );
-
   const handleReset = () => {
     setFilterAlphabet("all");
     setSearchTerm("");
@@ -62,19 +57,6 @@ export default function Brand() {
       <h2>Our Brands</h2>
       <h4>Best in business brands that offer quality products.</h4>
       <div className="filter-container">
-        <label htmlFor="filterAlphabet">Filter by Alphabet:</label>
-        <select
-          id="filterAlphabet"
-          onChange={(e) => setFilterAlphabet(e.target.value)}
-          value={filterAlphabet}
-        >
-          <option value="all">All</option>
-          {alphabets.map((alphabet) => (
-            <option key={alphabet} value={alphabet}>
-              {alphabet.toUpperCase()}
-            </option>
-          ))}
-        </select>
         <input
           type="text"
           placeholder="Search by brand name..."
@@ -90,7 +72,6 @@ export default function Brand() {
               <div className="image-box">
                 <img src={item.brandImage} alt={item.brand} />
               </div>
-              <span className="brand-name">{item.brand}</span>
             </div>
           </Link>
         ))}
