@@ -50,6 +50,7 @@ h2 {
 .item-card {
   flex: 0 0 calc(20% - 20px);
   width: 200px;
+  height: 230px;
   border: 1px solid #ccc;
   padding: 10px;
   text-align: center;
@@ -58,7 +59,8 @@ h2 {
 .item-card img {
   width: 100px;
   height: 100px;
-  margin: 0 auto;
+  margin: 10px auto;
+  object-fit: contain;
 }
 
 .item-card h3 {
