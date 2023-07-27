@@ -336,40 +336,38 @@ export default function ItemDetailsPage({ user }) {
             {item.remainStock <= 0 && <p>Out of Stock</p>}
             {addedToCart && <p>Added to cart successfully</p>}
             {reviewAdded && <p>Review added successfully</p>}
-            {!isFavourited && (
-              <div className="write-review-container">
-                <h3>Write a Review:</h3>
-                <div className="review-input">
-                  <label>Rating: </label>
-                  <input
-                    type="number"
-                    min="1"
-                    max="5"
-                    value={rating}
-                    onChange={(e) => setRating(e.target.value)}
-                  />
-                </div>
-                <div className="review-input">
-                  <label>Comment: </label>
-                  <textarea
-                    rows="4"
-                    cols="50"
-                    value={comment}
-                    onChange={(e) => setComment(e.target.value)}
-                  />
-                </div>
-                <button
-                  className="submit-review-button"
-                  onClick={handleAddReview}
-                  disabled={rating === 0 || comment.trim() === ""}
-                >
-                  Submit Review
-                </button>
-                {reviewAdded && (
-                  <p className="review-success">Review added successfully</p>
-                )}
+            <div className="write-review-container">
+              <h3>Write a Review:</h3>
+              <div className="review-input">
+                <label>Rating: </label>
+                <input
+                  type="number"
+                  min="1"
+                  max="5"
+                  value={rating}
+                  onChange={(e) => setRating(e.target.value)}
+                />
               </div>
-            )}
+              <div className="review-input">
+                <label>Comment: </label>
+                <textarea
+                  rows="4"
+                  cols="50"
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
+                />
+              </div>
+              <button
+                className="submit-review-button"
+                onClick={handleAddReview}
+                disabled={rating === 0 || comment.trim() === ""}
+              >
+                Submit Review
+              </button>
+              {reviewAdded && (
+                <p className="review-success">Review added successfully</p>
+              )}
+            </div>
           </div>
         </div>
       ) : (
