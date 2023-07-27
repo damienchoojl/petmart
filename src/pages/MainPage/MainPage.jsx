@@ -64,7 +64,7 @@ export default function MainPage() {
                     border: "2px solid black",
                     borderColor: "solid black",
                     objectFit: "cover",
-                    maxWidth: "90%",
+                    maxWidth: "99.80%",
                     maxHeight: "500px",
                   }}
                 />
