@@ -6,7 +6,6 @@ import "./LoginForm.css";
 export default function LoginForm({ setUser }) {
   const navigate = useNavigate();
   const location = useLocation();
-  const selectedItem = location.state;
 
   const [credentials, setCredentials] = useState({
     email: "",
