@@ -1,7 +1,5 @@
 # Pet Mart: Your One-Stop Pet Shop
 
-Description:
-
 🐾 Calling All Pet Lovers! Discover Pet Mart - Your Ultimate Pet Shopping Destination! 🛍️
 
 Are you a passionate pet lover, always on the lookout for the finest products to pamper your furry friends? Look no further! [**Pet Mart**](https://petmart-tnfk.onrender.com/) is here to make all your pet dreams come true!
@@ -11,8 +9,6 @@ Are you a passionate pet lover, always on the lookout for the finest products to
 [**Pet Mart**](https://petmart-tnfk.onrender.com/) aims to create a delightful shopping experience for pet owners, ensuring that every aspect of their pet's well-being is taken care of. From premium products to user-friendly features, [**Pet Mart**](https://petmart-tnfk.onrender.com/) is the go-to platform for all pet parents, providing convenience, reliability, and love for their cherished companions.
 
 # Features
-
-_Key Features:_
 
 1. User Authentication (Login and Sign-Up): Pet Mart warmly welcomes both pet enthusiasts and existing users with a seamless and secure login and sign-up process. Existing users can effortlessly log in using their email and password, while newcomers can create a new account by providing essential details like their name, email, and password.
 
