@@ -39,10 +39,6 @@ export default function DogFoodItems() {
     );
   });
 
-  const handleFilterChange = (event) => {
-    setFilterType(event.target.value);
-  };
-
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };
@@ -51,11 +47,6 @@ export default function DogFoodItems() {
     setFilterType("all");
     setSearchTerm("");
   };
-
-  // Generate options for all alphabets
-  const alphabets = Array.from({ length: 26 }, (_, i) =>
-    String.fromCharCode(97 + i)
-  );
 
   // Calculate the average rating from the comments
   const calculateAverageRating = (comments) => {
@@ -71,22 +62,6 @@ export default function DogFoodItems() {
     <div className="dog-food-container">
       <h2>Food Items</h2>
       <div className="filter-search-container">
-        <div>
-          <label htmlFor="filterType">Filter by Alphabet: </label>
-          <select
-            id="filterType"
-            onChange={handleFilterChange}
-            value={filterType}
-            className="filter-dropdown"
-          >
-            <option value="all">All</option>
-            {alphabets.map((alphabet) => (
-              <option key={alphabet} value={alphabet}>
-                {alphabet.toUpperCase()}
-              </option>
-            ))}
-          </select>
-        </div>
         <div>
           <label htmlFor="searchTerm">Search by Item Name: </label>
           <input
