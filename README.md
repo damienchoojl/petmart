@@ -26,6 +26,8 @@ Are you a passionate pet lover, always on the lookout for the finest products to
 
 8. Account Control and Profile Settings: Experience complete control over your account settings, including the option to update passwords and upload profile pictures. Pet Mart prioritizes the security and convenience of your account.
 
+9. Admin Inventory Management: Pet Mart empowers administrators with comprehensive inventory management capabilities. Admins have the authority to edit remaining stock and price for products, ensuring accurate and up-to-date information is presented to customers. This feature enables seamless control over product availability and pricing, guaranteeing a smooth shopping experience for all pet owners. Administrators can create an account ending with "@admin.com" to access the inventory management capabilities.
+
 Embark on a delightful journey with Pet Mart, where you'll find an abundance of joyous moments and extraordinary pet products. Discover the love and happiness that come with being part of the Pet Mart family! 🐾🛍️
 
 # Ideation & Project Planning
