@@ -55,6 +55,50 @@ If you're a devoted pet lover who yearns to explore the finest pet products in t
 
 🐾 [**Pet Mart**](https://petmart-tnfk.onrender.com/) - Where Pet Dreams Come True 🐾
 
+# User Stories
+
+_Able to login for existing user and sign up for new user:_
+
+1. Implement a login form where existing users can enter their credentials (email and password) to authenticate themselves.
+2. Implement a sign-up form where new users can provide their details (name, email, password) to create an account.
+
+_Able to browse through the app to see available pet food, treats, or healthcare items:_
+
+1. Create a product listing page where users can browse through different pet food, treats, or healthcare items.
+2. Fetch and display the product data from database.
+3. Implement search and filtering functionalities to allow users to find specific products based on their preferences.
+
+_Can browse through via brands, categories (food, treats, or healthcare), and types of pets (dogs and cats):_
+
+1. Implement navigation or filter options that allow users to browse products by brands, categories, and types of pets.
+2. Update the product listing based on the selected filters to show relevant products.
+
+_Can add items to the cart and purchase them for next time:_
+
+1. Implement a shopping cart feature that allows users to add items to their cart.
+2. Use local storage or a backend database to store the user's cart data.
+3. Provide options for users to review their cart, modify quantities, and proceed to checkout for purchase.
+
+_Can purchase items, rate, and comment:_
+
+1. Implement a checkout process.
+2. Create a rating and review system where users can provide feedback and comments on purchased items.
+
+_Can favorite products and unfavorite them:_
+
+1. Implement a favorite feature that allows users to mark products as their favorites.
+2. Provide options to add/remove products from favorites and display the user's favorite products in a dedicated section.
+
+_Can add pet details in the profile page:_
+
+1. Create a profile page where users can view and manage their account details.
+2. Include a section for users to add and manage pet details, such as pet name, breed, age, etc.
+
+_Able to update password and profile pictures:_
+
+1. Provide options for users to update their account password and profile picture in 2. the profile settings section.
+2. Implement the necessary form and validation logic to handle password and profile picture updates.
+
 # Images
 
 Images are taken from Google. All rights belong to the original artists and owners.
